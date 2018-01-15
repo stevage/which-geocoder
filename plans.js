@@ -526,10 +526,13 @@ module.exports =
         name: 'Geocode Premium',
         url: 'https://locate.pitneybowes.com/',
         custom: true,
-        sortDollars:20000,
+        sortDollars:20000, // https://locate.pitneybowes.com/ // wonder how much it is
         conditions: ['No public plan information']
-    }
-    // https://locate.pitneybowes.com/ // wonder how much it is
+    },
+
+
+    
+    
     ];
 
 console.log(module.exports.length + ' plans loaded.');

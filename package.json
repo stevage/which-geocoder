@@ -4,17 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "bash ./build.sh",
+    "start": "node node_modules/budo/bin/cmd.js -lH localhost index.js"
   },
   "author": "Steve Bennett <me@stevebennett.me> (http://stevebennett.me)",
   "license": "Apache-2.0",
   "dependencies": {
+    "browserify": "^14.5.0",
     "lodash": "^4.17.4",
     "pug": "^2.0.0-rc.4",
     "thousands": "^1.0.1",
     "vue": "^2.5.13"
   },
   "devDependencies": {
+    "budo": "^10.0.4",
     "envify": "^4.1.0"
   },
   "browser": {
