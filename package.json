@@ -1,0 +1,23 @@
+{
+  "name": "which-geocoder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Steve Bennett <me@stevebennett.me> (http://stevebennett.me)",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "pug": "^2.0.0-rc.4",
+    "thousands": "^1.0.1",
+    "vue": "^2.5.13"
+  },
+  "devDependencies": {
+    "envify": "^4.1.0"
+  },
+  "browser": {
+    "vue": "vue/dist/vue.common.js"
+  }
+}
