@@ -5,21 +5,12 @@
     /*color:blue;*/
 }
 
-.more-info {
-    /*text-align: right;*/
-    /*bottom:0;*/
-    /*position:absolute;*/
-    /*right:0;*/
-    margin-top:-1em;
-    padding-top:0;
-}
 
 .extra {
     /*color: darkred;*/
     font-style:italic;
     line-height:1em;
     margin-bottom:2rem;
-    margin-top:-1em;
 }
 
 #monthly-geocodes {
@@ -45,7 +36,13 @@
     font-family: BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-.more-info {
+.spacer {
+    /*text-align: right;*/
+    /*bottom:0;*/
+    /*position:absolute;*/
+    /*right:0;*/
+    margin-top:2em;
+    padding-top:0;
     margin-bottom:5em;
 }
 
@@ -59,6 +56,41 @@
     /*margin: 0 -15px;*/
 }
 
+.annual-price:hover {
+    background:hsl(120,60%,60%);
+    cursor:pointer;
+}
+
+
 .annual-price small {
     font-size:1rem;
+}
+
+#caveats {
+    margin-top: 2em;
+    
+}
+
+#caveats ul {
+    font-size: 80%;
+}
+
+.title {
+    text-align:center;
+    background:hsl(200,80%,90%) !important;
+    margin-bottom:2em;
+}
+
+.form-check-input {
+   margin-left:0em;
+}
+.form-check-label{
+    /*color:blue;*/
+    margin-left:1em;
+}
+
+#form h4 {
+    margin-left: -0.5em;
+    margin-top:1em;
+    /*padding:10em;*/
 }

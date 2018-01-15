@@ -40,7 +40,14 @@ const formTemplate = pug.render(`
             input.form-check-input#open-data-hate(type="radio" value='false' name="open-data" v-model="openData")
             label.form-check-label(for="open-data-hate") Hate it
 
-        
+    h5#caveats.background-light Caveats
+    ul
+        li Annual-payment discounts are not included.
+        li No assessment of quality.
+        li Not all known plans are included.
+        li Data on Google and Bing is pretty sparse.
+        li All prices in USD unless noted. Sorting does not use currencies.
+
 `);
 
 const form = new Vue({
@@ -87,36 +94,45 @@ const resultsTemplate = pug.render(`
             h4.card-title {{ plan.group }} 
             h6.mb-3.card-subtitle.text-muted {{ plan.name }}
             p
-                b {{ plan.dollarsMonthly | money(plan.currency) }} 
-                span for 
-                span(v-if="plan.includedRequestsMonthly !== undefined")
-                    b {{ plan.includedRequestsMonthly | integer }} 
-                    span /mo.
-                span(v-else-if="plan.includedRequestsDaily")
-                    b {{ plan.includedRequestsDaily | integer }} 
-                    span /day ({{ plan.includedRequestsDaily * 30 | integer}} /mo.)
-                .extra(v-if="plan.extra")
-                    p {{ plan.extra }}
-                    p {{ plan.bonuses }}
+                div(v-if="!plan.custom")
+                    b {{ plan.dollarsMonthly | money(plan.currency) }} 
+                    span for 
+                    span(v-if="plan.includedRequestsMonthly !== undefined")
+                        b {{ plan.includedRequestsMonthly | integer }} 
+                        span /mo.
+                    span(v-else-if="plan.includedRequestsDaily")
+                        b {{ plan.includedRequestsDaily | integer }} 
+                        span /day ({{ plan.includedRequestsDaily * 30 | integer}} /mo.)
+                    .extra(v-if="plan.extra")
+                        p {{ plan.extra }}
+                        p {{ plan.bonuses }}
+                div(v-else)
+                    p Custom plan by negotiation.
                 div(v-if="plan.requestsPerSecond")
                     p Rate limit: {{ plan.requestsPerSecond }} per sec
+
                 ul.bonuses.alert.alert-success(v-if="plan.bonuses")
                     li(v-for="bonus in plan.bonuses") {{ bonus }}
                 ul.conditions.alert.alert-warning(v-if="plan.conditions")
                     li(v-for="condition in plan.conditions") {{ condition }}
-            p.more-info(v-if="plan.url")
-                a(v-bind:href="plan.url") More info...
+            p.spacer
+            // p.more-info(v-if="plan.url")
+                
                         
             // p.alert.alert-info Annual: {{ plan._annualCost | money(plan.currency) }}
-            h5.annual-price {{ plan._annualCost | money(plan.currency) }} <small>yearly</small>
+            h5
+                a(v-bind:href="plan.url")
+                    .annual-price {{ plan._annualCost | money(plan.currency) }}<small>/yr</small>
 
 `);                               
 console.log(resultsTemplate);
 
 function def(a, b, c) {
-    if (a === undefined)
-        return def(b,c);
-    return a;
+    if (a !== undefined)
+        return a;
+    if (b !== undefined)
+        return b;
+    return c;
 }
 
 const results = new Vue({
@@ -143,15 +159,15 @@ const results = new Vue({
                         }
                         // console.log(p.name, p.sortDollars, p._annualCost);
                     } else {
-                        p._annualCost = '???';
+                        p._annualCost = '?';
                     }
                     return p;
                 }).sort((p1, p2) => {
                     // console.log(p1.name, 'v', p2.name,':', p1.sortDollars, p1._annualCost, p2.sortDollars, p2._annualCost, def(p1.sortDollars, p1._annualCost) - def(p2.sortDollars, p2._annualCost));
-                    return def(p1.sortDollars, p1._annualCost) - def(p2.sortDollars, p2._annualCost)
+                    return def(p1.sortDollars, +p1._annualCost) - def(p2.sortDollars, +p2._annualCost)
 
                 });
-            console.log(plans.map(p => p.name));
+            console.log(plans.map(p => [p.group, p.name, p._annualCost, p.sortDollars]));
             return plans;
         }
     },

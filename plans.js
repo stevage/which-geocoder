@@ -154,6 +154,7 @@ module.exports =
         includedRequestsMonthly: undefined,
         maxRequestsMonthly:  false,
         dollarsMonthly: undefined,
+        custom:true,
         publicRequired: false,
         thirdParty: false,
         requestsPerSecond: 1200 / 60,
@@ -252,10 +253,11 @@ module.exports =
         dollarsMonthly: 0,
         extra: '+ 50c / 1,000',
         conditions: ['Service is shutting down'],
-        totalMonthly: requests => 0 + 0.5 * Math.max(requests - 50000, 0) / 1000,
+        totalMonthly: requests => 0 + 0.5 * Math.max(requests - 25000, 0) / 1000,
         url: 'https://mapzen.com/pricing/',
         thirdParty: true,
-        openData: true
+        openData: true,
+        permanent: true
     },
     {
         group: 'SmartyStreets',
@@ -408,6 +410,7 @@ module.exports =
         openData: true,
         thirdParty: true,
         permanent: false,
+        sortDollars: 1000
         //humanOnly: true // I'm guessing...
     },
     {
@@ -466,6 +469,7 @@ module.exports =
         dollarsMonthly: 499,
         includedRequestsMonthly: 200e3,
         bonuses: ['Store, bulk queries, third-party-maps'],
+        conditions: ['6 month commitment'],
         thirdParty: true,
         url: 'https://developer.mapquest.com/plans',
         permanent: true
@@ -476,6 +480,7 @@ module.exports =
         dollarsMonthly: 899,
         includedRequestsMonthly: 500e3,
         bonuses: ['Store, bulk queries, third-party-maps'],
+        conditions: ['6 month commitment'],
         thirdParty: true,
         url: 'https://developer.mapquest.com/plans',
         permanent: true
@@ -486,9 +491,45 @@ module.exports =
         custom: true,
         thirdParty: true,
         url: 'https://developer.mapquest.com/plans',
-        permanent: true
+        permanent: true,
+        sortDollars: 12000
+    },
+    {
+        group: 'Yandex',
+        name: 'Free',
+        thirdParty: false,
+        humanOnly: true,
+        publicRequired: true,
+        freeRequired: true,
+        permanent: false,
+        includedRequestsMonthly: 25e3,
+        dollarsMonthly: 0,
+        url: 'https://tech.yandex.com/maps/doc/jsapi/2.1/terms/index-docpage/?from=geocoder#conditions'
+    },
+    {
+        group: 'Yandex',
+        name: 'API for Business',
+        thirdParty: false,
+        humanOnly: true,
+        permanent: true,
+        monthlyIncluded: 100000,
+        conditions: ['Primarily eastern Europe', 'Storing geocodes "On request"', 'Processing without showing "On request"'],
+        publicRequired: false,
+        includedRequestsMonthly: 25e3,
+        dollarsMonthly: 100000,
+        sortDollars:1772*12,//USD
+        currency: '₽', //rubles!
+        url: 'https://tech.yandex.com/maps/commercial/?from=geocoder'
+    },
+    {
+        group: 'Pitney-Bowes',
+        name: 'Geocode Premium',
+        url: 'https://locate.pitneybowes.com/',
+        custom: true,
+        sortDollars:20000,
+        conditions: ['No public plan information']
     }
-
-
     // https://locate.pitneybowes.com/ // wonder how much it is
     ];
+
+console.log(module.exports.length + ' plans loaded.');
