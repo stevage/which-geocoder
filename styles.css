@@ -96,6 +96,9 @@
     margin-left: 0em;
 }
 
+#form {
+    position: fixed;
+}
 
 #form h4 {
     margin-left: -0.5em;
@@ -103,8 +106,12 @@
     /*padding:10em;*/
 }
 
-.details {
+.details,.api {
     padding-left:0.5em;
     font-size:80%;
     list-style:none;
+}
+
+.con {
+    color: red;
 }

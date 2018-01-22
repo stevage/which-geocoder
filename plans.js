@@ -14,12 +14,134 @@ freeRequired=false: does your app have to be available at zero cost to qualify
 dollarsMonthly: base monthly rate
 sortDollars: annual price, for complicated plans, used for sorting only.
 currencySymbol="$": currencySymbol symbol (just for display)
-    
+cacheLimitDays: 30    
 */
 const MONTH = 30.4;
 
-module.exports = 
-[
+const providers = {
+    HERE: {
+        api: {
+                docs: 'https://developer.here.com/documentation',
+                autocomplete: 'https://developer.here.com/documentation/geocoder-autocomplete/topics/quick-start.html',
+                geocode: 'https://developer.here.com/documentation/geocoder/topics/quick-start.html',
+                reverse: 'https://developer.here.com/documentation/geocoder/topics/resource-reverse-geocode.html',
+                locationWeighting: true, // 'prox'
+            }, 
+
+    }, OpenCage: {
+        api: {
+            docs: 'https://geocoder.opencagedata.com/api',
+            geocode: 'https://geocoder.opencagedata.com/api#forward-resp',
+            reverse: 'https://geocoder.opencagedata.com/api#reverse-resp',
+            autocomplete: false,
+        },
+        cons: ['GNAF not included yet.']
+    }, Mapbox: {
+        api: {
+            geocode: 'https://www.mapbox.com/api-documentation/#geocoding',
+            reverse: 'https://www.mapbox.com/api-documentation/#search-for-places',
+            autocomplete: 'https://www.mapbox.com/api-documentation/#geocoding',            
+        }
+    }, 'Geocode.xyz': {
+        api: {
+            geocode: 'https://geocode.xyz/api',
+            reverse: false,
+            autocomplete: false,
+        }
+    }, 'LocationIQ': {
+        api: {
+            geocode: 'https://locationiq.org/docs',
+            reverse: 'https://locationiq.org/docs',
+            autocomplete: false,
+            batch: 'https://locationiq.org/#batch-geocoding'
+        }
+    }, 'Mapzen (RIP)': {
+        api: {
+            geocode: true,
+            reverse: true,
+            autocomplete: true,
+            locationWeighting: true
+        }
+    }, 'Tomtom': {
+        api: {
+            docs: 'https://developer.tomtom.com/online-search/online-search-documentation-search',
+            geocode: 'https://developer.tomtom.com/online-search/online-search-documentation-search/fuzzy-search',
+            autocomplete: true, // "typeahead"
+            reverse: 'https://developer.tomtom.com/online-search/online-search-documentation-search/geometry-search',
+            locationWeighting: true
+        }
+    }, 'Geocode.farm': {
+        api: {
+            docs: 'https://geocode.farm/geocoding/free-api-documentation/',
+            geocode: 'https://geocode.farm/geocoding/free-api-documentation/',
+            reverse: 'https://geocode.farm/geocoding/free-api-documentation/',
+            autocomplete: false,
+            locationWeighting: true
+        }
+    }, 'BING': {
+        api: {
+            docs: 'https://msdn.microsoft.com/en-us/library/ff701715.aspx',
+            geocode: 'https://msdn.microsoft.com/en-us/library/ff701714.aspx',
+            reverse: 'https://msdn.microsoft.com/en-us/library/ff701710.aspx',
+            autocomplete: 'https://msdn.microsoft.com/en-us/library/mt712650.aspx',
+            locationWeighting: 'https://msdn.microsoft.com/en-us/library/ff701704.aspx', // "User context parameters"
+            play: 'http://www.bing.com/api/maps/sdkrelease/mapcontrol/isdk#autoSuggestUi+JS'
+        },
+        cons: ['"Autosuggest" is not exactly autocomplete.', 'Session management code required for cheapest pricing.']
+    }, 'Mapquest': {
+        api: {
+            docs: 'https://developer.mapquest.com/documentation/geocoding-api/',
+            geocode: 'https://developer.mapquest.com/documentation/geocoding-api/',
+            reverse: 'https://developer.mapquest.com/documentation/geocoding-api/reverse/get/',
+            locationWeighting: true, // bounding-box
+            autocomplete: 'https://developer.mapquest.com/documentation/searchahead-api/', // "Search ahead"
+        }
+    }, 'Maplarge': {
+        api: {
+            docs: 'http://www.maplarge.com/developer/geocoderapi', // wait for it!
+            geocode: true,
+            reverse: true,
+            autocomplete: false, 
+            locationWeighting: false
+
+        },
+        cons: ['API documentation looks old and broken.']
+    }, 'Yahoo BOSS PlaceFinder': {
+        cons: ['Looks out of date and poorly maintained.'],
+        api: {}
+    }, 'Pitney-Bowes': {
+        cons: ['No public plan information'],
+        api: {
+            docs: 'https://locate.pitneybowes.com/',
+            geocode: true, // basic and premium
+            reverse: true, // basic and premium
+            autocomplete: 'https://locate.pitneybowes.com/geosearch',
+            // can't tell about locationWeighting, don't think I can see full API docs
+        },
+        termsUrl: 'https://www.pitneybowes.com/us/developer/subscription-agreement.html?tab2'
+    }, 'geocode.earth': {
+        api: {
+            // based on Mapzen
+            geocode: true,
+            reverse: true,
+            autocomplete: true,
+            locationWeighting: true //ish
+        }
+    }, 'Google': {
+        api: {
+            geocode: true,
+            reverse: true,
+            docs: 'https://developers.google.com/maps/documentation/geocoding/intro',
+            locationWeighting: 'https://developers.google.com/maps/documentation/geocoding/intro#Viewports', // viewport biasing
+            autocomplete: 'https://developers.google.com/places/web-service/autocomplete',
+        }, cons: ['Must use a Google Map (not Leaflet/Mapbox-GL-jS/OL)'],
+
+    }
+};
+
+
+
+const plans = [
     {   
         group: 'HERE',
         name: 'Public Basic',
@@ -107,7 +229,7 @@ module.exports =
         maxRequestsMonthly:  undefined,
         url: 'https://developer.here.com/plans',
         dollarsMonthly: undefined,
-        bonuses: ['Permanent storage possible.'],
+        bonuses: ['Permanent storage +$5k/year.'],
         custom: true,
         publicRequired: false,
         permanent: true,
@@ -198,7 +320,8 @@ module.exports =
         thirdParty: false,
         requestsPerSecond: 1200 / 60,
         permanent: true,
-        bonuses: ['50 locations per request','Permanent storage ok'],
+        bonuses: ['50 locations per request','Permanent storage +$5k/year.'],
+
         sortDollars: 12500, // I think?
         humanOnly: true,
         url: 'https://www.mapbox.com/pricing/'
@@ -213,7 +336,8 @@ module.exports =
         permanent: true,
         openData: true,
         thirdParty: true,
-        url: 'https://geocoder.opencagedata.com/pricing'
+        url: 'https://geocoder.opencagedata.com/pricing',
+
     },
     {
         group: 'OpenCage',
@@ -260,18 +384,23 @@ module.exports =
         openData: true,
         thirdParty: true,
     },
+    // TODO Google Free plan
     {
         group: 'Google',
         name: 'Standard',
         includedRequestsDaily: 2500,
-        includedRequestsMonthly: 2500 * MONTH,
         maxRequestsMonthly: 100e3,
         freeRequired: true,
         publicRequired: true,
         totalMonthly: requests => 0 + 0.5 * Math.max(requests - 2500 * MONTH, 0) / 1000,
         url: 'https://developers.google.com/maps/pricing-and-plans/#details',
         thirdParty: false,
-        conditions: ['Very restrictive terms of use'],
+        humanOnly: true,
+        libraryRequired: true,
+        conditions: [
+            'Your ToS and Privacy Policy must reference Google\'s',
+            'No bulk downloads' //10.5e No mass downloading. You will not use the Service in a manner that gives you or a third party access to mass downloads or bulk feeds of any Content. For example, you are not permitted to offer a batch geocoding service that uses Content contained in the Maps API(s). 
+        ],
         bonuses: ['Excellent worldwide quality'],
     },
     {
@@ -282,7 +411,12 @@ module.exports =
         url: 'https://developers.google.com/maps/premium/usage-limits',
         sortDollars: 20000,
         thirdParty: false,
-        conditions: ['Very restrictive terms of use'],
+        humanOnly: true,
+        libraryRequired: true,
+        conditions: [
+            'Your ToS and Privacy Policy must reference Google\'s',
+            'No bulk downloads' //10.5e No mass downloading. You will not use the Service in a manner that gives you or a third party access to mass downloads or bulk feeds of any Content. For example, you are not permitted to offer a batch geocoding service that uses Content contained in the Maps API(s). 
+        ],
         bonuses: ['Excellent worldwide quality'],
         // 1 geocoding request=0.25 credits
         // maxRequsetsMonthly: 100e3
@@ -302,6 +436,17 @@ module.exports =
         thirdParty: true,
         openData: true,
         permanent: true
+    },
+    {
+        group: 'geocode.earth',
+        name: 'TBA',
+        openData: true,
+        thirdParty: true,
+        permanent: true, // making assumptions HERE
+        bonuses: ['Made by the Mapzen team'],
+        conditions: ['Not launched yet'],
+        url: 'https://geocode.earth/',
+        sortDollars: 1000 // ???
     },
     {
         group: 'SmartyStreets',
@@ -456,7 +601,7 @@ module.exports =
         openData: true,
         thirdParty: true,
         permanent: false,
-        sortDollars: 1000
+        sortDollars: 1000 * 12
         //humanOnly: true // I'm guessing...
     },
     {
@@ -519,11 +664,10 @@ module.exports =
         dollarsMonthly: 499,
         includedRequestsMonthly: 200e3,
         bonuses: ['Store results (US+Canada)','Bulk queries, third-party-maps'],
-        conditions: ['6 month commitment'],
+        conditions: ['6 month commitment', 'Excess usage billed as "overage"'],
         thirdParty: true,
-        conditions: ['Excess usage billed as "overage"'],
         url: 'https://developer.mapquest.com/plans',
-        permanent: true
+        permanent: false
     },
     {
         group: 'Mapquest',
@@ -531,11 +675,10 @@ module.exports =
         dollarsMonthly: 899,
         includedRequestsMonthly: 500e3,
         bonuses: ['Store results (US + Canada)','Bulk queries, third-party-maps'],
-        conditions: ['6 month commitment'],
+        conditions: ['6 month commitment', 'Excess usage billed as "overage"'],
         thirdParty: true,
-        conditions: ['Excess usage billed as "overage"'],
         url: 'https://developer.mapquest.com/plans',
-        permanent: true
+        permanent: false
     },
     {
         group: 'Mapquest',
@@ -543,8 +686,10 @@ module.exports =
         custom: true,
         thirdParty: true,
         conditions: ['Excess usage billed as "overage"'],
+        // probably these apply:
+        bonuses: ['Store results (US + Canada)','Bulk queries, third-party-maps'],
         url: 'https://developer.mapquest.com/plans',
-        permanent: true,
+        permanent: false,
         sortDollars: 12000
     },
     {
@@ -575,11 +720,17 @@ module.exports =
     },
     {
         group: 'Pitney-Bowes',
-        name: 'Geocode Premium',
+        name: 'Quote #1',
+        includedRequestsMonthly: 40000,
+        dollarsMonthly: 9000/12,
         url: 'https://locate.pitneybowes.com/',
-        custom: true,
-        sortDollars:20000, // https://locate.pitneybowes.com/ // wonder how much it is
-        conditions: ['No public plan information']
+        conditions:['"Premium" geocode API uses 3x credits'],
+        permanent: false,
+        humanOnly: false, // see 3.3 here https://www.pitneybowes.com/us/developer/subscription-agreement.html?tab2
+        cacheLimitDays: 30
+        // custom: true,
+        // sortDollars:20000, // https://locate.pitneybowes.com/ // wonder how much it is
+        
     },
     {
         group: 'Geocode.farm',
@@ -685,107 +836,149 @@ module.exports =
     },
     {
         group: 'Tomtom',
-        name: '50,000 public',
-        dollarsMonthly: 25,
-        includedRequestsMonthly: 50e3,
+        name: 'Free',
+        dollarsMonthly: 0,
+        requestsPerSecond: 5,
+        includedRequestsDaily: 2500,
+        maxRequestsDaily: 2500,
         thirdParty: false,
         permanent: false,
         publicRequired: true,
         url: 'https://developer.tomtom.com/store/maps-api',
-        bonuses: ['Credits last indefinitely']
+    },
+    {
+        group: 'Tomtom',
+        name: '50,000 public',
+        dollarsMonthly: 0,
+        maxRequestsMonthly: false,
+        maxRequestsDaily: false,
+        // includedRequestsDaily: 2500,
+        includedRequestsMonthly: 2500 * MONTH,
+        extraPer1000: 25 / 50,
+        thirdParty: false,
+        permanent: false,
+        publicRequired: true,
+        url: 'https://developer.tomtom.com/store/maps-api',
+        bonuses: ['Credits last indefinitely', '2500 free per day']
     },
     {
         group: 'Tomtom',
         name: '1,000,000 public',
         dollarsMonthly: 449,
-        includedRequestsMonthly: 1e6,
+        includedRequestsDaily: 2500,
+        maxRequestsMonthly: false,
+        maxRequestsDaily: false,
+        extraPer1000: 449 / 1000,
         thirdParty: false,
         permanent: false,
         publicRequired: true,
         url: 'https://developer.tomtom.com/store/maps-api',
-        bonuses: ['Credits last indefinitely']
+        bonuses: ['Credits last indefinitely', '2500 free per day']
     },
     {
         group: 'Tomtom',
         name: '10,000,000 public',
-        dollarsMonthly: 4199,
-        includedRequestsMonthly: 10e6,
+        dollarsMonthly: 0,
+        maxRequestsMonthly: false,
+        maxRequestsDaily: false,
+        includedRequestsDaily: 2500,// * MONTH + 10e6,
+        extraPer1000: 4199 / (10e6 / 1000),
         thirdParty: false,
         permanent: false,
         publicRequired: true,
         url: 'https://developer.tomtom.com/store/maps-api',
-        bonuses: ['Credits last indefinitely']
+        bonuses: ['Credits last indefinitely', '2500 free per day']
     },
     {
         group: 'Tomtom',
         name: '50,000 private',
         dollarsMonthly: 0,
+        maxRequestsMonthly: false,
+        maxRequestsDaily: false,
+        includedRequestsMonthly: 2500,// * MONTH + 50e3,
         extraPer1000: 199 / 50,
-        extra: '+ $199/50k',
+        extra: '+ $199 per 50k ($3.98/1k)',
         // includedRequestsMonthly: 50e3,
         thirdParty: false,
         permanent: false,
         url: 'https://developer.tomtom.com/store/maps-api',
-        bonuses: ['Credits last indefinitely']
+        bonuses: ['Credits last indefinitely', '2500 free per day']
     },
     {
         group: 'Tomtom',
         name: '100,000 private',
         dollarsMonthly: 0,
+        maxRequestsMonthly: false,
+        maxRequestsDaily: false,
+        includedRequestsDaily: 2500,
         extraPer1000: 379 / 100,
-        extra: '+ $379/100k',
+        extra: '+ $379 per 100k ($3.79/1k)',
         thirdParty: false,
         permanent: false,
         url: 'https://developer.tomtom.com/store/maps-api',
-        bonuses: ['Credits last indefinitely']
+        bonuses: ['Credits last indefinitely', '2500 free per day']
     },
     {
-        group: 'Tomtom',
+        group: 'Tomtom', 
         name: '250,000 private',
         dollarsMonthly: 0,
+        maxRequestsMonthly: false,
+        maxRequestsDaily: false,
+        includedRequestsDaily: 2500,
         extraPer1000: 909 / 250,
-        extra: '+ $909/250k',
+        extra: '+ $909 per 250k ($3.63/1k)',
         thirdParty: false,
         permanent: false,
         url: 'https://developer.tomtom.com/store/maps-api',
-        bonuses: ['Credits last indefinitely']
+        bonuses: ['Credits last indefinitely', '2500 free per day']
     },
     {
         group: 'Tomtom',
         name: '500,000 private',
         dollarsMonthly: 0,
+        maxRequestsMonthly: false,
+        maxRequestsDaily: false,
+        includedRequestsDaily: 2500,
         extraPer1000: 1719 / 500,
-        extra: '+ $1719/500k',
+        extra: '+ $1719 per 500k ($3.44/1k)',
         thirdParty: false,
         permanent: false,
         url: 'https://developer.tomtom.com/store/maps-api',
-        bonuses: ['Credits last indefinitely']
+        bonuses: ['Credits last indefinitely', '2500 free per day']
     },
     {
         group: 'Tomtom',
         name: '1,000,000 private',
         dollarsMonthly: 0,
+        maxRequestsMonthly: false,
+        maxRequestsDaily: false,
+        includedRequestsDaily: 2500,
         extraPer1000: 3249 / 1000,
-        extra: '+ $3249 / 1000k',
-        // includedRequestsMonthly: 1e6,
+
+        extra: '+ $3249 per 1M ($3.25/1k)',
         thirdParty: false,
         permanent: false,
         url: 'https://developer.tomtom.com/store/maps-api',
-        bonuses: ['Credits last indefinitely']
+        bonuses: ['Credits last indefinitely', '2500 free per day']
     },
     {
         group: 'Tomtom',
         name: '10,000,000 private',
-        dollarsMonthly: 27499,
-        includedRequestsMonthly: 10e6,
+        dollarsMonthly: 0,
+        maxRequestsMonthly: false,
+        maxRequestsDaily: false,
+        includedRequestsDaily: 2500,
+        extraPer1000: 27499 / 10e3,
+        extra: '+ $27,499 per 10M ($2.75/1k)',
         thirdParty: false,
         permanent: false,
         url: 'https://developer.tomtom.com/store/maps-api',
-        bonuses: ['Credits last indefinitely']
+        bonuses: ['Credits last indefinitely', '2500 free per day']
     },
+];
+plans.forEach(plan => plan.provider = providers[plan.group] || {api:{}});
 
-    
-    
-    ];
+module.exports = plans;
+
 
 console.log(module.exports.length + ' plans loaded.');
