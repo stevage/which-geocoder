@@ -17,7 +17,9 @@ currencySymbol="$": currencySymbol symbol (just for display)
 cacheLimitDays: 30    
 */
 const MONTH = 30.4;
-
+function per(dollars, transK) {
+    return '+ $' + dollars + ' per ' + transK + 'k ($' + (dollars / transK).toFixed(2) + '/1k)';
+}
 const providers = {
     HERE: {
         api: {
@@ -40,7 +42,8 @@ const providers = {
         api: {
             geocode: 'https://www.mapbox.com/api-documentation/#geocoding',
             reverse: 'https://www.mapbox.com/api-documentation/#search-for-places',
-            autocomplete: 'https://www.mapbox.com/api-documentation/#geocoding',            
+            autocomplete: 'https://www.mapbox.com/api-documentation/#geocoding',
+            locationWeighting: 'Filtering by bounding box, and 5 mile proximity bias.'
         }
     }, 'Geocode.xyz': {
         api: {
@@ -54,7 +57,8 @@ const providers = {
             reverse: 'https://locationiq.org/docs',
             autocomplete: false,
             batch: 'https://locationiq.org/#batch-geocoding'
-        }
+        },
+        quality: '★☆☆ OpenStreetMap'
     }, 'Mapzen (RIP)': {
         api: {
             geocode: true,
@@ -95,7 +99,9 @@ const providers = {
             reverse: 'https://developer.mapquest.com/documentation/geocoding-api/reverse/get/',
             locationWeighting: true, // bounding-box
             autocomplete: 'https://developer.mapquest.com/documentation/searchahead-api/', // "Search ahead"
-        }
+        },
+        quality: 'AU: ★★☆ Unit-level',
+        playUrl: 'https://developer.mapquest.com/documentation/samples/geocoding/v1/address/'
     }, 'Maplarge': {
         api: {
             docs: 'http://www.maplarge.com/developer/geocoderapi', // wait for it!
@@ -121,12 +127,12 @@ const providers = {
         termsUrl: 'https://www.pitneybowes.com/us/developer/subscription-agreement.html?tab2'
     }, 'geocode.earth': {
         api: {
-            // based on Mapzen
             geocode: true,
             reverse: true,
             autocomplete: true,
-            locationWeighting: true //ish
-        }
+            locationWeighting: true //"Filter results by bounding box, distance from a point, country, and more"
+        },
+        quality: "AU: ★★★ GNAF, elsewhere: ★☆☆ OSM + OpenAddresses"
     }, 'Google': {
         api: {
             geocode: true,
@@ -135,7 +141,16 @@ const providers = {
             locationWeighting: 'https://developers.google.com/maps/documentation/geocoding/intro#Viewports', // viewport biasing
             autocomplete: 'https://developers.google.com/places/web-service/autocomplete',
         }, cons: ['Must use a Google Map (not Leaflet/Mapbox-GL-jS/OL)'],
+        quality: '★★★ Top-notch'
 
+    }, 'PSMA': {
+        quality: 'AU: ★★★ Authoritative',
+        api: {
+            geocode: true,
+            reverse: false,
+            autocomplete: 'https://developer.psma.com.au/api/predictive-address-verification/get/predictive/address'
+        },
+        playUrl: 'https://demo.psma.com.au/predictive-address-verification'
     }
 };
 
@@ -145,19 +160,24 @@ const plans = [
     {   
         group: 'HERE',
         name: 'Public Basic',
-        includedRequestsMonthly: 15e3,
-        maxRequestsMonthly:  15e3,
-        url: 'https://developer.here.com/plans',
         dollarsMonthly: 0,
+        includedRequestsMonthly: 15e3,
+        extra: per(1, 2),
+        extraPer1000: 1 / 2,
+        maxRequestsMonthly:  false,
+        url: 'https://developer.here.com/plans',
         thirdParty: false,
         publicRequired: true
     },
     {   group: 'HERE',
         name: 'Public Starter',
-        includedRequestsMonthly: 100e3,
-        maxRequestsMonthly:  100e3,
-        url: 'https://developer.here.com/plans',
         dollarsMonthly: 49,
+        dollarsAnnually: 490,
+        includedRequestsMonthly: 100e3,
+        extra: per(1, 2),
+        extraPer1000: 1 / 2,
+        maxRequestsMonthly:  false,
+        url: 'https://developer.here.com/plans',
         thirdParty: false,
         publicRequired: true
     },
@@ -165,9 +185,12 @@ const plans = [
         group: 'HERE',
         name: 'Public Standard',
         includedRequestsMonthly: 250e3,
-        maxRequestsMonthly:  250e3,
+        extra: per(1, 2),
+        extraPer1000: 1 / 2,
+        maxRequestsMonthly:  false,
         url: 'https://developer.here.com/plans',
         dollarsMonthly: 119,
+        dollarsAnnually: 1190,
         thirdParty: false,
         publicRequired: true
     },
@@ -175,9 +198,12 @@ const plans = [
         group: 'HERE',
         name: 'Public Pro',
         includedRequestsMonthly: 1e6,
-        maxRequestsMonthly:  1e6,
+        extra: per(1, 2),
+        extraPer1000: 1 / 2,
+        maxRequestsMonthly:  false,
         url: 'https://developer.here.com/plans',
         dollarsMonthly: 449,
+        dollarsAnnually: 4490,
         thirdParty: false,
         publicRequired: true
     },
@@ -196,9 +222,12 @@ const plans = [
     {   group: 'HERE',
         name: 'Business Starter',
         includedRequestsMonthly: 50e3,
-        maxRequestsMonthly:  50e3,
+        extra: per(1, 0.2),
+        extraPer1000: 1 / 0.2, // yep, $1 per 200 trans
+        maxRequestsMonthly:  false,
         url: 'https://developer.here.com/plans',
         dollarsMonthly: 199,
+        dollarsAnnually: 1990,
         thirdParty: false,
         publicRequired: false
     },
@@ -206,9 +235,12 @@ const plans = [
         group: 'HERE',
         name: 'Business Standard',
         includedRequestsMonthly: 100e3,
-        maxRequestsMonthly:  100e3,
+        extra: per(1, 0.2),
+        extraPer1000: 1 / 0.2, // yep, $1 per 200 trans
+        maxRequestsMonthly:  false,
         url: 'https://developer.here.com/plans',
         dollarsMonthly: 349,
+        dollarsAnnually: 3490,
         publicRequired: false,
         thirdParty: false,
     },
@@ -216,9 +248,12 @@ const plans = [
         group: 'HERE',
         name: 'Business Pro',
         includedRequestsMonthly: 150e3,
-        maxRequestsMonthly:  150e3,
+        extra: per(1, 0.2),
+        extraPer1000: 1 / 0.2, // yep, $1 per 200 trans
+        maxRequestsMonthly:  false,
         url: 'https://developer.here.com/plans',
         dollarsMonthly: 499,
+        dollarsAnnually: 4990,
         thirdParty: false,
         publicRequired: false
     },
@@ -234,7 +269,7 @@ const plans = [
         publicRequired: false,
         permanent: true,
         thirdParty: false, // presumably not
-        sortDollars: 5500
+        sortDollars: 10000 // this should be a formula based on requests...
     },
     {
         group: 'BING',
@@ -244,9 +279,11 @@ const plans = [
         dollarsMonthly: 0,
         publicRequired: true,
         freeRequired: true,
+        permanent: true, // "except that geocodes may be stored locally only for use with your Company Applications. "
         thirdParty: false, // not certain but I think so
         conditions: ['Max 125,000 transactions per year'],
-        url: 'https://www.microsoft.com/en-us/maps/licensing/options'
+        url: 'https://www.microsoft.com/en-us/maps/licensing/options',
+        autocompleteMultiplier: 0
     }, {
         group: 'BING',
         name: 'Non-profit, Free',
@@ -254,13 +291,15 @@ const plans = [
         maxRequestsMonthly:  50000*MONTH,
         dollarsMonthly: 0,
         publicRequired: true,
+        permanent: true, // "except that geocodes may be stored locally only for use with your Company Applications. "
         freeRequired: true, // "Applications that qualify for a limited website and consumer application use, which will be free of charge as defined in the SDKs"
         conditions: [
             'Must be non-profit.',
             'Less than 50k transactions per 24 hours.'
         ],
         thirdParty: false,
-        url: 'https://www.microsoft.com/en-us/maps/licensing/options'
+        url: 'https://www.microsoft.com/en-us/maps/licensing/options',
+        autocompleteMultiplier: 0
 
     },  {
         group: 'BING',
@@ -268,14 +307,18 @@ const plans = [
         includedRequestsMonthly: 500e3 / 12, // annually
         dollarsMonthly: 4620 / 12,
         sortDollars: 3680,
-        thirdParty: false
+        permanent: true, // "except that geocodes may be stored locally only for use with your Company Applications. "
+        thirdParty: false,
+        autocompleteMultiplier: 0 // We think, based on the session key thing.
     },  {
         group: 'BING',
         name: 'Quote #2',
         includedRequestsMonthly: 1e6 / 12, // annually
         dollarsMonthly: 6050 / 12,
         sortDollars: 4818,
-        thirdParty: false
+        permanent: true, // "except that geocodes may be stored locally only for use with your Company Applications. "
+        thirdParty: false,
+        autocompleteMultiplier: 0
     }, {
         group: 'Mapbox',
         name: 'Pay-as-you-go',
@@ -320,10 +363,10 @@ const plans = [
         thirdParty: false,
         requestsPerSecond: 1200 / 60,
         permanent: true,
-        bonuses: ['50 locations per request','Permanent storage +$5k/year.'],
+        bonuses: ['50 locations per request'],
 
-        sortDollars: 12500, // I think?
-        humanOnly: true,
+        sortDollars: 12500, // I think? Have heard figures of $12.5k and $25k, not sure difference.
+        humanOnly: false, // "Batch geocoding is only available with an Enterprise plan." 
         url: 'https://www.mapbox.com/pricing/'
 
     },
@@ -401,6 +444,7 @@ const plans = [
             'Your ToS and Privacy Policy must reference Google\'s',
             'No bulk downloads' //10.5e No mass downloading. You will not use the Service in a manner that gives you or a third party access to mass downloads or bulk feeds of any Content. For example, you are not permitted to offer a batch geocoding service that uses Content contained in the Maps API(s). 
         ],
+        autocompleteMultiplier: 1/2.5, // based on I'm-not-sure-what
         bonuses: ['Excellent worldwide quality'],
     },
     {
@@ -417,6 +461,31 @@ const plans = [
             'Your ToS and Privacy Policy must reference Google\'s',
             'No bulk downloads' //10.5e No mass downloading. You will not use the Service in a manner that gives you or a third party access to mass downloads or bulk feeds of any Content. For example, you are not permitted to offer a batch geocoding service that uses Content contained in the Maps API(s). 
         ],
+        autocompleteMultiplier: 1/2.5, // based on I'm-not-sure-what
+        bonuses: ['Excellent worldwide quality'],
+        // 1 geocoding request=0.25 credits
+        // maxRequsetsMonthly: 100e3
+        // totalMonthly: requests => 0 + 0.5 * Math.max(requests - 2500 * MONTH, 0) / 1000
+    },
+    {
+        group: 'Google',
+        name: 'ONI Group quote',
+        includedRequestsMonthly: 0,
+        // "Assume that 500k-1m credits would be ~ $21k", Translating that as 1 million credits for $21k, each credit is 4 geocodes, so 4 million.
+        dollarsMonthly: 0,
+        currencySymbol: '$A',
+        extraPer1000: 21e3 / (4e6 / 1000),
+        maxRequestsMonthly: false,
+        url: 'https://developers.google.com/maps/premium/usage-limits',
+        // sortDollars: 20000,
+        thirdParty: false,
+        humanOnly: true,
+        libraryRequired: true,
+        conditions: [
+            'Your ToS and Privacy Policy must reference Google\'s',
+            'No bulk downloads' //10.5e No mass downloading. You will not use the Service in a manner that gives you or a third party access to mass downloads or bulk feeds of any Content. For example, you are not permitted to offer a batch geocoding service that uses Content contained in the Maps API(s). 
+        ],
+        autocompleteMultiplier: 1/2.5, // based on I'm-not-sure-what
         bonuses: ['Excellent worldwide quality'],
         // 1 geocoding request=0.25 credits
         // maxRequsetsMonthly: 100e3
@@ -435,18 +504,45 @@ const plans = [
         url: 'https://mapzen.com/pricing/',
         thirdParty: true,
         openData: true,
-        permanent: true
+        permanent: true,
+        autocompleteMultiplier: 0.1 // not exactly, you also got 50k free autocompletes per month
     },
     {
         group: 'geocode.earth',
-        name: 'TBA',
+        name: 'Basic',
+        includedRequestsMonthly: 200e3,
+        dollarsMonthly: 200,
+        requestsPerSecond: 5, //10 for autocomplete or reverse but that's too complicated
         openData: true,
         thirdParty: true,
         permanent: true, // making assumptions HERE
         bonuses: ['Made by the Mapzen team'],
-        conditions: ['Not launched yet'],
+        conditions: ['Brand new company we know nothing about'],
         url: 'https://geocode.earth/',
-        sortDollars: 1000 // ???
+    },
+    {
+        group: 'geocode.earth',
+        name: 'Advanced',
+        includedRequestsMonthly: 2e6,
+        dollarsMonthly: 500,
+        requestsPerSecond: 10, //20 for autocomplete or reverse but that's too complicated
+        openData: true,
+        thirdParty: true,
+        permanent: true, // making assumptions HERE
+        bonuses: ['Made by the Mapzen team'],
+        conditions: ['Brand new company we know nothing about'],
+        url: 'https://geocode.earth/',
+    },
+    {
+        group: 'geocode.earth',
+        name: 'Custom',
+        custom: true,
+        openData: true,
+        thirdParty: true,
+        permanent: true, // making assumptions HERE
+        bonuses: ['Made by the Mapzen team'],
+        conditions: ['Brand new company we know nothing about'],
+        url: 'https://geocode.earth/',
     },
     {
         group: 'SmartyStreets',
@@ -834,6 +930,9 @@ const plans = [
         openData: true,
         thirdParty: true
     },
+    // where are the tomtom terms? 
+    // https://www.tomtom.com/en_au/legal/terms-and-conditions/ ? 
+    // https://www.tomtom.com/en_au/legal/terms-of-use/ ?
     {
         group: 'Tomtom',
         name: 'Free',
@@ -842,7 +941,7 @@ const plans = [
         includedRequestsDaily: 2500,
         maxRequestsDaily: 2500,
         thirdParty: false,
-        permanent: false,
+        permanent: true,
         publicRequired: true,
         url: 'https://developer.tomtom.com/store/maps-api',
     },
@@ -854,9 +953,10 @@ const plans = [
         maxRequestsDaily: false,
         // includedRequestsDaily: 2500,
         includedRequestsMonthly: 2500 * MONTH,
+        extra: per(25, 50),
         extraPer1000: 25 / 50,
         thirdParty: false,
-        permanent: false,
+        permanent: true,
         publicRequired: true,
         url: 'https://developer.tomtom.com/store/maps-api',
         bonuses: ['Credits last indefinitely', '2500 free per day']
@@ -864,13 +964,15 @@ const plans = [
     {
         group: 'Tomtom',
         name: '1,000,000 public',
-        dollarsMonthly: 449,
+        // extra: '+ $449 per 1M ($' + 449 / (1e6 / 1000) + '/1k)',
+        extra: per(449, 1000),
+        dollarsMonthly: 0,//449,
         includedRequestsDaily: 2500,
         maxRequestsMonthly: false,
         maxRequestsDaily: false,
         extraPer1000: 449 / 1000,
         thirdParty: false,
-        permanent: false,
+        permanent: true,
         publicRequired: true,
         url: 'https://developer.tomtom.com/store/maps-api',
         bonuses: ['Credits last indefinitely', '2500 free per day']
@@ -883,8 +985,10 @@ const plans = [
         maxRequestsDaily: false,
         includedRequestsDaily: 2500,// * MONTH + 10e6,
         extraPer1000: 4199 / (10e6 / 1000),
+        extra: per(4199, 10e6 / 1000),
+        // extra: '+ $4,199 per 1M ($' + 4199 / (10e6 / 1000) + '/1k)',
         thirdParty: false,
-        permanent: false,
+        permanent: true,
         publicRequired: true,
         url: 'https://developer.tomtom.com/store/maps-api',
         bonuses: ['Credits last indefinitely', '2500 free per day']
@@ -900,7 +1004,7 @@ const plans = [
         extra: '+ $199 per 50k ($3.98/1k)',
         // includedRequestsMonthly: 50e3,
         thirdParty: false,
-        permanent: false,
+        permanent: true,
         url: 'https://developer.tomtom.com/store/maps-api',
         bonuses: ['Credits last indefinitely', '2500 free per day']
     },
@@ -914,7 +1018,7 @@ const plans = [
         extraPer1000: 379 / 100,
         extra: '+ $379 per 100k ($3.79/1k)',
         thirdParty: false,
-        permanent: false,
+        permanent: true,
         url: 'https://developer.tomtom.com/store/maps-api',
         bonuses: ['Credits last indefinitely', '2500 free per day']
     },
@@ -928,7 +1032,7 @@ const plans = [
         extraPer1000: 909 / 250,
         extra: '+ $909 per 250k ($3.63/1k)',
         thirdParty: false,
-        permanent: false,
+        permanent: true,
         url: 'https://developer.tomtom.com/store/maps-api',
         bonuses: ['Credits last indefinitely', '2500 free per day']
     },
@@ -942,7 +1046,7 @@ const plans = [
         extraPer1000: 1719 / 500,
         extra: '+ $1719 per 500k ($3.44/1k)',
         thirdParty: false,
-        permanent: false,
+        permanent: true,
         url: 'https://developer.tomtom.com/store/maps-api',
         bonuses: ['Credits last indefinitely', '2500 free per day']
     },
@@ -957,7 +1061,7 @@ const plans = [
 
         extra: '+ $3249 per 1M ($3.25/1k)',
         thirdParty: false,
-        permanent: false,
+        permanent: true,
         url: 'https://developer.tomtom.com/store/maps-api',
         bonuses: ['Credits last indefinitely', '2500 free per day']
     },
@@ -971,14 +1075,73 @@ const plans = [
         extraPer1000: 27499 / 10e3,
         extra: '+ $27,499 per 10M ($2.75/1k)',
         thirdParty: false,
-        permanent: false,
+        permanent: true,
         url: 'https://developer.tomtom.com/store/maps-api',
         bonuses: ['Credits last indefinitely', '2500 free per day']
     },
+    {
+        group: 'PSMA',
+        name: 'Free',
+        dollarsMonthly: 0,
+        includedRequestsMonthly: 500,
+        permanent: true,
+        thirdParty: true,
+        url: 'https://developer.psma.com.au/pricing',
+        bonuses: ['Open data licence applies', 'Free autocomplete'],
+        conditions: ['Australia only'],
+        autocompleteMultiplier: 0
+    },
+    {
+        group: 'PSMA',
+        name: 'Standard',
+        dollarsMonthly: 99,
+        includedRequestsMonthly: 10e3,
+        permanent: true,
+        thirdParty: true,
+        url: 'https://developer.psma.com.au/pricing',
+        bonuses: ['Open data licence applies', 'Free autocomplete'],
+        conditions: ['Australia only'],
+        currency: 'AUD',
+        currencySymbol: '$A',
+        autocompleteMultiplier: 0
+    },
+    {
+        group: 'PSMA',
+        name: 'Pro',
+        dollarsMonthly: 749,
+        includedRequestsMonthly: 100e3,
+        permanent: true,
+        thirdParty: true,
+        url: 'https://developer.psma.com.au/pricing',
+        bonuses: ['Open data licence applies', 'Free autocomplete'],
+        conditions: ['Australia only'],
+        currency: 'AUD',
+        currencySymbol: '$A',
+        autocompleteMultiplier: 0
+    },
+    {
+        group: 'PSMA',
+        name: 'Custom',
+        permanent: true,
+        thirdParty: true,
+        url: 'https://developer.psma.com.au/pricing',
+        bonuses: ['Open data licence applies', 'Free autocomplete'],
+        conditions: ['Australia only'],
+        custom: true,
+        currency: 'AUD',
+        currencySymbol: '$A',
+        autocompleteMultiplier: 0
+    }
+
+
 ];
-plans.forEach(plan => plan.provider = providers[plan.group] || {api:{}});
+let groups = {};
+plans.forEach(plan => {
+    plan.provider = providers[plan.group] || {api:{}};
+    groups[plan.group] = true;
+});
 
 module.exports = plans;
 
 
-console.log(module.exports.length + ' plans loaded.');
+console.log(module.exports.length + ' plans, from ' + Object.keys(groups).length + ' different providers loaded.');

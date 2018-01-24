@@ -17,6 +17,25 @@
     width: 8em;
 }
 
+#autocomplete-multiplier {
+    width: 4em;
+}
+
+/*************** Details about each plan **********************/
+
+.plan-details {
+    max-height:22em;
+    overflow-y:scroll;
+    /*background:#efe;*/
+}
+
+.plan-details-inner {
+    border: 1px solid hsl(0,0%,95%);
+    /*hsl(120,60%,90%);*/
+    padding:1px;
+
+}
+
 /*.annual-price {
     color: hsl(120,80%,20%);
     font-weight:500;
@@ -98,13 +117,21 @@
 
 #form {
     position: fixed;
+    overflow-y:scroll;
+    height: calc(100vh - 115px);
 }
 
 #form h4 {
     margin-left: -0.5em;
-    margin-top:1em;
+    /*margin-top:1em;*/
     /*padding:10em;*/
 }
+
+
+
+.usage {
+    margin-bottom: 1em;
+};
 
 .details,.api {
     padding-left:0.5em;
