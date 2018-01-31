@@ -30,11 +30,18 @@
 }
 
 .plan-details-inner {
-    border: 8px solid hsl(0,0%,97%);
+    border: 4px solid hsl(0,0%,97%);
     /*hsl(120,60%,90%);*/
     padding:1px;
 
 }
+
+.plan-details-inner a {
+    /*color: hsl(120, 80%, 20%);*/
+    color: unset;
+    text-decoration: dashed grey underline;
+}
+
 
 /*.annual-price {
     color: hsl(120,80%,20%);
