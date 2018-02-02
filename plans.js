@@ -29,8 +29,10 @@ const providers = {
                 reverse: 'https://developer.here.com/documentation/geocoder/topics/resource-reverse-geocode.html',
                 locationWeighting: true, // 'prox'
             },
-            termsUrl: 'https://developer.here.com/terms-and-conditions',
-            permanent: '30 days'
+        termsUrl: 'https://developer.here.com/terms-and-conditions',
+        permanent: '30 days',
+        humanOnly: true,
+        humanOnlyNote: "You are not allowed to: ... issue queries (i) not responsive to end user actions; or (ii) that are subsequent or automatic follow-up queries related to an initial query or end user action (such as triggering automatic Request based on an end user's search result); or otherwise modify queries to the HERE Materials; ",
 
     }, OpenCage: {
         api: {
@@ -151,7 +153,8 @@ const providers = {
             locationWeighting: 'https://developers.google.com/maps/documentation/geocoding/intro#Viewports', // viewport biasing
             autocomplete: 'https://developers.google.com/places/web-service/autocomplete',
         }, cons: ['Must use a Google Map (not Leaflet/Mapbox-GL-jS/OL)'],
-        quality: '★★★ Top-notch'
+        quality: '★★★ Top-notch',
+        termsUrl: 'https://enterprise.google.com/maps/terms/us/maps_purchase_agreement_emea.html'
 
     }, 'PSMA': {
         quality: 'AU: ★★★ Authoritative',
@@ -161,6 +164,14 @@ const providers = {
             autocomplete: 'https://developer.psma.com.au/api/predictive-address-verification/get/predictive/address'
         },
         playUrl: 'https://demo.psma.com.au/predictive-address-verification'
+    },
+    'SmartyStreets': {
+        api: {
+            geocode: true,
+            autocomplete: false, // true for US addresses only
+            reverse: false,
+            locationWeighting: false
+        }
     }
 };
 
@@ -172,15 +183,17 @@ const plans = [
         name: 'Public Basic',
         dollarsMonthly: 0,
         includedRequestsMonthly: 15e3,
+        requestsPerSecond: 1,
         extra: per(1, 2),
         extraPer1000: 1 / 2,
         maxRequestsMonthly:  false,
         url: 'https://developer.here.com/plans',
         thirdParty: false,
-        publicRequired: true
+        publicRequired: true,
     },
     {   group: 'HERE',
         name: 'Public Starter',
+        requestsPerSecond: 1,
         dollarsMonthly: 49,
         dollarsAnnually: 490,
         includedRequestsMonthly: 100e3,
@@ -198,6 +211,7 @@ const plans = [
         extra: per(1, 2),
         extraPer1000: 1 / 2,
         maxRequestsMonthly:  false,
+        requestsPerSecond: 2,
         url: 'https://developer.here.com/plans',
         dollarsMonthly: 119,
         dollarsAnnually: 1190,
@@ -211,6 +225,7 @@ const plans = [
         extra: per(1, 2),
         extraPer1000: 1 / 2,
         maxRequestsMonthly:  false,
+        requestsPerSecond: 3,
         url: 'https://developer.here.com/plans',
         dollarsMonthly: 449,
         dollarsAnnually: 4490,
@@ -235,6 +250,7 @@ const plans = [
         extra: per(1, 0.2),
         extraPer1000: 1 / 0.2, // yep, $1 per 200 trans
         maxRequestsMonthly:  false,
+        requestsPerSecond: 1,
         url: 'https://developer.here.com/plans',
         dollarsMonthly: 199,
         dollarsAnnually: 1990,
@@ -248,6 +264,7 @@ const plans = [
         extra: per(1, 0.2),
         extraPer1000: 1 / 0.2, // yep, $1 per 200 trans
         maxRequestsMonthly:  false,
+        requestsPerSecond: 2,
         url: 'https://developer.here.com/plans',
         dollarsMonthly: 349,
         dollarsAnnually: 3490,
@@ -261,6 +278,7 @@ const plans = [
         extra: per(1, 0.2),
         extraPer1000: 1 / 0.2, // yep, $1 per 200 trans
         maxRequestsMonthly:  false,
+        requestsPerSecond: 3,
         url: 'https://developer.here.com/plans',
         dollarsMonthly: 499,
         dollarsAnnually: 4990,
@@ -1149,7 +1167,7 @@ const plans = [
 let groups = {};
 plans.forEach(plan => {
     plan.provider = providers[plan.group] || { api: {} };
-    ['termsUrl', 'permanent'].forEach(key => { if (plan[key] === undefined && plan.provider[key] !== undefined) plan[key] = plan.provider[key]; });
+    ['termsUrl', 'permanent', 'humanOnly', 'humanOnlyNote'].forEach(key => { if (plan[key] === undefined && plan.provider[key] !== undefined) plan[key] = plan.provider[key]; });
     groups[plan.group] = true; // just for counting
 });
 

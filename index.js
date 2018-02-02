@@ -4,7 +4,6 @@ const pug = require('pug');
 const _ = require('lodash');
 const thousands = require('thousands');
 const MONTH = 30.4;
-const formTemplate = pug.render(require('./form.pug.js'));
 
 const form = new Vue({
     el: '#form',
@@ -25,7 +24,7 @@ const form = new Vue({
         payAnnually: false,
         autocompleteMultiplier: undefined
     },
-    template: formTemplate
+    template: pug.render(require('./form.pug.js'))
 });
 
 window.form=form;
@@ -34,10 +33,10 @@ if (window.location.hash.match('smartygrants')) {
     // SmartyGrants needs
     Object.assign(form, {
         public: true,
-    bulkJobs: true,
+        bulkJobs: true,
         geocodesMonthly: 40000,
         geocodesDaily: 10000,
-        geocodesSecondly: 5,
+        geocodesSecondly: 2,
         autoComplete: true,
         autocompleteMultiplier: 10,
         reverseGeocode: true,
@@ -66,7 +65,6 @@ Vue.filter('integer', function(x) {
 });
 //🚫
 
-const resultsTemplate = pug.render(require('./results.pug.js'));                               
 // console.log(resultsTemplate);
 
 function toUSD(amount, plan) {
@@ -186,6 +184,6 @@ const results = new Vue({
             // console.log(plans.map(p => [p.group, p.name, p._annualCost, p.sortDollars]));
             return plans;
         }
-    }, template: resultsTemplate
+    }, template: pug.render(require('./results.pug.js'))
 });
 window.plans = results.plans;
