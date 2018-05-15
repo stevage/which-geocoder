@@ -64,14 +64,14 @@ const providers = {
             batch: 'https://locationiq.org/#batch-geocoding'
         },
         quality: '★☆☆ OpenStreetMap'
-    }, 'Mapzen (RIP)': {
+    }, /*'Mapzen (RIP)': {
         api: {
             geocode: true,
             reverse: true,
             autocomplete: true,
             locationWeighting: true
         }
-    }, 'Tomtom': {
+    },*/ 'Tomtom': {
         api: {
             docs: 'https://developer.tomtom.com/online-search/online-search-documentation-search',
             geocode: 'https://developer.tomtom.com/online-search/online-search-documentation-search/fuzzy-search',
