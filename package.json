@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "bash ./build.sh",
-    "start": "node node_modules/budo/bin/cmd.js -lH localhost index.js"
+    "start": "node node_modules/budo/bin/cmd.js -p 9400 -lH localhost index.js"
   },
   "author": "Steve Bennett <me@stevebennett.me> (http://stevebennett.me)",
   "license": "Apache-2.0",
