@@ -1,7 +1,8 @@
 module.exports = `
 #results
     .row
-        .col-sm-3.mb-3.mr-1.border-secondary.border.rounded(v-for="plan in plans")
+        // mr-1.
+        .col-sm-3.mb-3.border-secondary.border.rounded(v-for="plan in plans")
             // h4.card-title {{ plan.name }} 
             // h6.mb-3.card-subtitle.text-muted {{ plan.group }}
             h4.card-title {{ plan.group }} 
