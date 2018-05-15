@@ -29,22 +29,6 @@ const form = new Vue({
 
 window.form=form;
 
-if (window.location.hash.match('smartygrants')) {
-    // SmartyGrants needs
-    Object.assign(form, {
-        public: true,
-        bulkJobs: true,
-        geocodesMonthly: 40000,
-        geocodesDaily: 10000,
-        geocodesSecondly: 2,
-        autoComplete: true,
-        autocompleteMultiplier: 10,
-        reverseGeocode: true,
-        mappingLibrary: true,
-        payAnnually: true
-    });
-}
-
 Vue.filter('money', function(x, currencySymbol='$') {
     if (x === undefined) {
         return '?';
