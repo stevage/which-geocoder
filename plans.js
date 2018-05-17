@@ -41,6 +41,7 @@ const providers = {
             reverse: 'https://geocoder.opencagedata.com/api#reverse-resp',
             autocomplete: false,
         },
+        termsUrl: 'https://geocoder.opencagedata.com/terms',
         cons: ['GNAF not included yet.']
     }, Mapbox: {
         api: {
