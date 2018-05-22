@@ -21,6 +21,20 @@ function per(dollars, transK) {
     return '+ $' + dollars + ' per ' + transK + 'k ($' + (dollars / transK).toFixed(2) + '/1k)';
 }
 const providers = {
+	Gisgraphy: {
+        api: {
+                docs: 'https://www.gisgraphy.com/documentation/index.php',
+                autocomplete: 'https://www.gisgraphy.com/documentation/user-guide.php#fulltextservice',
+                geocode: 'https://www.gisgraphy.com/documentation/user-guide.php#geocodingservice',
+                reverse: true,
+                locationWeighting: true, // 'prox'
+            },
+        termsUrl: 'https://www.gisgraphy.com/terms.php',
+        permanent: true,
+        humanOnly: false,
+	batch: 'https://premium.gisgraphy.com/products#batch',
+	quality:'★★★ : include Openaddresses, Geonames, Openstreetmap'
+    },
     HERE: {
         api: {
                 docs: 'https://developer.here.com/documentation',
@@ -41,7 +55,6 @@ const providers = {
             reverse: 'https://geocoder.opencagedata.com/api#reverse-resp',
             autocomplete: false,
         },
-        termsUrl: 'https://geocoder.opencagedata.com/terms',
         cons: ['GNAF not included yet.']
     }, Mapbox: {
         api: {
@@ -179,6 +192,18 @@ const providers = {
 
 
 const plans = [
+ {   
+        group: 'Gisgraphy',
+        name: 'standard',
+        dollarsMonthly: 235,
+        includedRequestsMonthly: 5184000,
+        requestsPerSecond: 2,
+        url: 'https://premium.gisgraphy.com/pricing',
+        thirdParty: true,
+        publicRequired: false,
+	bonuses:['can be installed for ofline use', 'Since 2006'],
+	freeRequired: false,
+    },
     {   
         group: 'HERE',
         name: 'Public Basic',
@@ -416,8 +441,7 @@ const plans = [
         name: 'X-Small',
         includedRequestsDaily: 10e3,
         requestsPerSecond: 10,
-        dollarsMonthly: 66,
-        currencySymbol: '$A',
+        dollarsMonthly: 50,
         permanent: true,
         openData: true,
         thirdParty: true,
@@ -428,8 +452,7 @@ const plans = [
         name: 'Small',
         includedRequestsDaily: 20e3,
         requestsPerSecond: 12,
-        dollarsMonthly: 132,
-        currencySymbol: '$A',
+        dollarsMonthly: 100,
         permanent: true,
         openData: true,
         thirdParty: true,
@@ -440,8 +463,7 @@ const plans = [
         name: 'Medium',
         includedRequestsDaily: 100e3,
         requestsPerSecond: 15,
-        dollarsMonthly: 660,
-        currencySymbol: '$A',
+        dollarsMonthly: 500,
         permanent: true,
         openData: true,
         thirdParty: true,
@@ -453,8 +475,7 @@ const plans = [
         includedRequestsDaily: 1e6,
         // includedRequestsMonthly: 1e6 * MONTH,
         requestsPerSecond: 15,
-        dollarsMonthly: 1320,
-        currencySymbol: '$A',
+        dollarsMonthly: 1000,
         permanent: true,
         url: 'https://geocoder.opencagedata.com/pricing',
         openData: true,
@@ -524,22 +545,22 @@ const plans = [
         // maxRequsetsMonthly: 100e3
         // totalMonthly: requests => 0 + 0.5 * Math.max(requests - 2500 * MONTH, 0) / 1000
     },
-    // {
-    //     group: 'Mapzen (RIP)',
-    //     name: 'Flex',
-    //     includedRequestsMonthly: 25000,
-    //     maxRequestsMonthly: false,
-    //     dollarsMonthly: 0,
-    //     extraPer1000: 0.5,
-    //     extra: '+ 50c / 1,000',
-    //     conditions: ['⚠ Service is shutting down'],
-    //     totalMonthly: requests => 0 + 0.5 * Math.max(requests - 25000, 0) / 1000,
-    //     url: 'https://mapzen.com/pricing/',
-    //     thirdParty: true,
-    //     openData: true,
-    //     permanent: true,
-    //     autocompleteMultiplier: 0.1 // not exactly, you also got 50k free autocompletes per month
-    // },
+    {
+        group: 'Mapzen (RIP)',
+        name: 'Flex',
+        includedRequestsMonthly: 25000,
+        maxRequestsMonthly: false,
+        dollarsMonthly: 0,
+        extraPer1000: 0.5,
+        extra: '+ 50c / 1,000',
+        conditions: ['⚠ Service is shutting down'],
+        totalMonthly: requests => 0 + 0.5 * Math.max(requests - 25000, 0) / 1000,
+        url: 'https://mapzen.com/pricing/',
+        thirdParty: true,
+        openData: true,
+        permanent: true,
+        autocompleteMultiplier: 0.1 // not exactly, you also got 50k free autocompletes per month
+    },
     {
         group: 'geocode.earth',
         name: 'Basic',
