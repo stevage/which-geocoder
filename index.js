@@ -77057,7 +77057,8 @@ const plans = [
         name: 'X-Small',
         includedRequestsDaily: 10e3,
         requestsPerSecond: 10,
-        dollarsMonthly: 50,
+        dollarsMonthly: 66,
+        currencySymbol: '$A',
         permanent: true,
         openData: true,
         thirdParty: true,
@@ -77068,7 +77069,8 @@ const plans = [
         name: 'Small',
         includedRequestsDaily: 20e3,
         requestsPerSecond: 12,
-        dollarsMonthly: 100,
+        dollarsMonthly: 132,
+        currencySymbol: '$A',
         permanent: true,
         openData: true,
         thirdParty: true,
@@ -77079,7 +77081,8 @@ const plans = [
         name: 'Medium',
         includedRequestsDaily: 100e3,
         requestsPerSecond: 15,
-        dollarsMonthly: 500,
+        dollarsMonthly: 660,
+        currencySymbol: '$A',
         permanent: true,
         openData: true,
         thirdParty: true,
@@ -77091,7 +77094,8 @@ const plans = [
         includedRequestsDaily: 1e6,
         // includedRequestsMonthly: 1e6 * MONTH,
         requestsPerSecond: 15,
-        dollarsMonthly: 1000,
+        dollarsMonthly: 1320,
+        currencySymbol: '$A',
         permanent: true,
         url: 'https://geocoder.opencagedata.com/pricing',
         openData: true,
@@ -77818,6 +77822,7 @@ module.exports = plans;
 
 console.log(module.exports.length + ' plans, from ' + Object.keys(groups).length + ' different providers loaded.');
 console.log('Providers: ' + Object.keys(groups));
+
 },{}],196:[function(require,module,exports){
 module.exports = `
 #results
