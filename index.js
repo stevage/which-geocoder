@@ -76686,7 +76686,7 @@ function per(dollars, transK) {
     return '+ $' + dollars + ' per ' + transK + 'k ($' + (dollars / transK).toFixed(2) + '/1k)';
 }
 const providers = {
-	Gisgraphy: {
+    Gisgraphy: {
         api: {
                 docs: 'https://www.gisgraphy.com/documentation/index.php',
                 autocomplete: 'https://www.gisgraphy.com/documentation/user-guide.php#fulltextservice',
@@ -76699,7 +76699,7 @@ const providers = {
         humanOnly: false,
         openData: true,
         batch: 'https://premium.gisgraphy.com/products#batch',
-	    quality:'★★☆ : OSM, OpenAddresses, Geonames...'
+        quality:'★★☆ : OSM, OpenAddresses, Geonames...'
     },
     HERE: {
         api: {
@@ -76721,6 +76721,7 @@ const providers = {
             reverse: 'https://geocoder.opencagedata.com/api#reverse-resp',
             autocomplete: false,
         },
+        termsUrl: 'https://geocoder.opencagedata.com/terms',
         cons: ['GNAF not included yet.']
     }, Mapbox: {
         api: {
@@ -77107,7 +77108,8 @@ const plans = [
         name: 'X-Small',
         includedRequestsDaily: 10e3,
         requestsPerSecond: 10,
-        dollarsMonthly: 50,
+        dollarsMonthly: 66,
+        currencySymbol: '$A',
         permanent: true,
         openData: true,
         thirdParty: true,
@@ -77118,7 +77120,8 @@ const plans = [
         name: 'Small',
         includedRequestsDaily: 20e3,
         requestsPerSecond: 12,
-        dollarsMonthly: 100,
+        dollarsMonthly: 132,
+        currencySymbol: '$A',
         permanent: true,
         openData: true,
         thirdParty: true,
@@ -77129,7 +77132,8 @@ const plans = [
         name: 'Medium',
         includedRequestsDaily: 100e3,
         requestsPerSecond: 15,
-        dollarsMonthly: 500,
+        dollarsMonthly: 660,
+        currencySymbol: '$A',
         permanent: true,
         openData: true,
         thirdParty: true,
@@ -77141,7 +77145,8 @@ const plans = [
         includedRequestsDaily: 1e6,
         // includedRequestsMonthly: 1e6 * MONTH,
         requestsPerSecond: 15,
-        dollarsMonthly: 1000,
+        dollarsMonthly: 1320,
+        currencySymbol: '$A',
         permanent: true,
         url: 'https://geocoder.opencagedata.com/pricing',
         openData: true,
@@ -77211,22 +77216,22 @@ const plans = [
         // maxRequsetsMonthly: 100e3
         // totalMonthly: requests => 0 + 0.5 * Math.max(requests - 2500 * MONTH, 0) / 1000
     },
-    {
-        group: 'Mapzen (RIP)',
-        name: 'Flex',
-        includedRequestsMonthly: 25000,
-        maxRequestsMonthly: false,
-        dollarsMonthly: 0,
-        extraPer1000: 0.5,
-        extra: '+ 50c / 1,000',
-        conditions: ['⚠ Service is shutting down'],
-        totalMonthly: requests => 0 + 0.5 * Math.max(requests - 25000, 0) / 1000,
-        url: 'https://mapzen.com/pricing/',
-        thirdParty: true,
-        openData: true,
-        permanent: true,
-        autocompleteMultiplier: 0.1 // not exactly, you also got 50k free autocompletes per month
-    },
+    // {
+    //     group: 'Mapzen (RIP)',
+    //     name: 'Flex',
+    //     includedRequestsMonthly: 25000,
+    //     maxRequestsMonthly: false,
+    //     dollarsMonthly: 0,
+    //     extraPer1000: 0.5,
+    //     extra: '+ 50c / 1,000',
+    //     conditions: ['⚠ Service is shutting down'],
+    //     totalMonthly: requests => 0 + 0.5 * Math.max(requests - 25000, 0) / 1000,
+    //     url: 'https://mapzen.com/pricing/',
+    //     thirdParty: true,
+    //     openData: true,
+    //     permanent: true,
+    //     autocompleteMultiplier: 0.1 // not exactly, you also got 50k free autocompletes per month
+    // },
     {
         group: 'geocode.earth',
         name: 'Basic',
@@ -77859,7 +77864,7 @@ const plans = [
 let groups = {};
 plans.forEach(plan => {
     plan.provider = providers[plan.group] || { api: {} };
-    ['termsUrl', 'permanent', 'humanOnly', 'humanOnlyNote', 'openData'].forEach(key => { if (plan[key] === undefined && plan.provider[key] !== undefined) plan[key] = plan.provider[key]; });
+    ['termsUrl', 'permanent', 'humanOnly', 'humanOnlyNote'].forEach(key => { if (plan[key] === undefined && plan.provider[key] !== undefined) plan[key] = plan.provider[key]; });
     groups[plan.group] = true; // just for counting
 });
 
