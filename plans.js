@@ -44,6 +44,21 @@ function per(dollars, transK) {
     return '+ $' + dollars + ' per ' + transK + 'k ($' + (dollars / transK).toFixed(2) + '/1k)';
 }
 const providers = {
+    Gisgraphy: {
+        api: {
+                docs: 'https://www.gisgraphy.com/documentation/index.php',
+                autocomplete: 'https://www.gisgraphy.com/documentation/user-guide.php#fulltextservice',
+                geocode: 'https://www.gisgraphy.com/documentation/user-guide.php#geocodingservice',
+                reverse: true,
+                locationWeighting: true, // 'prox'
+            },
+        termsUrl: 'https://www.gisgraphy.com/terms.php',
+        permanent: true,
+        humanOnly: false,
+        openData: true,
+        batch: 'https://premium.gisgraphy.com/products#batch',
+        quality:'★★☆ : OSM, OpenAddresses, Geonames...'
+    },
     HERE: {
         api: {
                 docs: 'https://developer.here.com/documentation',
@@ -202,6 +217,18 @@ const providers = {
 
 
 const plans = [
+    {   
+        group: 'Gisgraphy',
+        name: 'Standard',
+        dollarsMonthly: 235,
+        includedRequestsMonthly: 5184000,
+        requestsPerSecond: 0.5, // 30 per 60 seconds
+        url: 'https://premium.gisgraphy.com/pricing',
+        thirdParty: true,
+        publicRequired: false,
+        bonuses:['Entire SQL database can be downloaded.'],
+        freeRequired: false,
+    },
     {   
         group: 'HERE',
         name: 'Public Basic',
