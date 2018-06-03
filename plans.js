@@ -29,6 +29,7 @@ freeRequired=false: does your app have to be available at zero cost to qualify
 dollarsMonthly: base monthly rate
 currencySymbol="$": currencySymbol symbol (just for display)
 cacheLimitDays: 30 
+requestsPerSecond: number, an additional constraint of requests per second (usually in addition to monthly or daily limits)
 openData: boolean, is the service based heavily on open data such as OpenStreetMap and OpenAddresses?
 extra: string describing how much extra transactions cost. `extra: per(3, 5)` means "$3 per 5000 extra transactions".
 extraPer1000: number, dollars per thousand extra transactions. (0.6 in the above case)
