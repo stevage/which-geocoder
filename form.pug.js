@@ -58,7 +58,7 @@ module.exports = `
                 label.form-check-label(for="open-data-hate") Hate it
         .form-group
             input.form-check-input#pay-annually(type="checkbox" v-model="payAnnually")
-            label.form-check-label(for="pay-annually") Happy to pay anually
+            label.form-check-label(for="pay-annually") Happy to pay annually
         
 
     h5#caveats.background-light Caveats
