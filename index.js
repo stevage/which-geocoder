@@ -22,7 +22,7 @@ const form = new Vue({
         locationWeighting: false,
         mappingLibrary: false,
         payAnnually: false,
-        autocompleteMultiplier: undefined
+        autocompleteMultiplier: undefined // This is "how many autocompletes do I think I need per geocoded address"
     },
     template: pug.render(require('./form.pug.js'))
 });

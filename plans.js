@@ -32,8 +32,11 @@ cacheLimitDays: 30
 openData: boolean, is the service based heavily on open data such as OpenStreetMap and OpenAddresses?
 extra: string describing how much extra transactions cost. `extra: per(3, 5)` means "$3 per 5000 extra transactions".
 extraPer1000: number, dollars per thousand extra transactions. (0.6 in the above case)
+autocompleteMultiplier=1: number. 0.1 means that 10 autocomplete requests count as 1 regular geocode request.
+
+// Don't fill this out unless the default sort is incorrect.
 sortDollars: number. Where there is not a precise publicly available dollar figure, this is an approximate annual fee for sorting.
-autocompleteMultiplier: number. 0.1 means that 10 autocomplete requests count as 1 regular geocode request.
+
 
 */
 const MONTH = 30.4;
