@@ -257,8 +257,8 @@ const plans = [
         publicRequired: false,
         bonuses:['Entire SQL database can be downloaded.'],
         freeRequired: false,
-	sortDollars:938,
-	autocompleteMultiplier:1
+    	sortDollars:938,
+    	autocompleteMultiplier:1
     },
     {   
         group: 'Gisgraphy',
@@ -271,8 +271,8 @@ const plans = [
         publicRequired: false,
         bonuses:['Entire SQL database can be downloaded.'],
         freeRequired: false,
-	sortDollars:2347,
-	autocompleteMultiplier:1
+    	sortDollars:2347,
+    	autocompleteMultiplier:1
     },
     {   
         group: 'Gisgraphy',
@@ -285,8 +285,8 @@ const plans = [
         publicRequired: false,
         bonuses:['Entire SQL database can be downloaded.'],
         freeRequired: false,
-	sortDollars:3522,
-	autocompleteMultiplier:1
+    	sortDollars:3522,
+    	autocompleteMultiplier:1
     },
     {   
         group: 'Gisgraphy',
@@ -299,8 +299,8 @@ const plans = [
         publicRequired: false,
         bonuses:['Entire SQL database can be downloaded.'],
         freeRequired: false,
-	sortDollars:5868,
-	autocompleteMultiplier:1
+    	sortDollars:5868,
+    	autocompleteMultiplier:1
     },
     {   
         group: 'HERE',
