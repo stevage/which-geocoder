@@ -59,7 +59,7 @@ module.exports = `
                 label.form-check-label(for="open-data-hate") Hate it
         .form-group
             input.form-check-input#pay-annually(type="checkbox" v-model="payAnnually")
-            label.form-check-label(for="pay-annually") Happy to pay anually
+            label.form-check-label(for="pay-annually") Happy to pay annually
         
 
     h5#caveats.background-light Caveats
@@ -71,6 +71,7 @@ module.exports = `
         li All prices in USD unless noted.
 
 `;
+
 },{}],2:[function(require,module,exports){
 /* jshint esnext:true */
 const Vue = require('vue');
@@ -76671,6 +76672,7 @@ freeRequired=false: does your app have to be available at zero cost to qualify
 dollarsMonthly: base monthly rate
 currencySymbol="$": currencySymbol symbol (just for display)
 cacheLimitDays: 30 
+requestsPerSecond: number, an additional constraint of requests per second (usually in addition to monthly or daily limits)
 openData: boolean, is the service based heavily on open data such as OpenStreetMap and OpenAddresses?
 extra: string describing how much extra transactions cost. `extra: per(3, 5)` means "$3 per 5000 extra transactions".
 extraPer1000: number, dollars per thousand extra transactions. (0.6 in the above case)
@@ -77940,7 +77942,9 @@ const plans = [
 let groups = {};
 plans.forEach(plan => {
     plan.provider = providers[plan.group] || { api: {} };
-    ['termsUrl', 'permanent', 'humanOnly', 'humanOnlyNote'].forEach(key => { if (plan[key] === undefined && plan.provider[key] !== undefined) plan[key] = plan.provider[key]; });
+    ['termsUrl', 'permanent', 'humanOnly', 'humanOnlyNote', 'openData'].forEach(key => { 
+        if (plan[key] === undefined && plan.provider[key] !== undefined) plan[key] = plan.provider[key]; 
+    });
     groups[plan.group] = true; // just for counting
 });
 
