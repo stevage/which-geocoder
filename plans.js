@@ -1298,7 +1298,9 @@ const plans = [
 let groups = {};
 plans.forEach(plan => {
     plan.provider = providers[plan.group] || { api: {} };
-    ['termsUrl', 'permanent', 'humanOnly', 'humanOnlyNote'].forEach(key => { if (plan[key] === undefined && plan.provider[key] !== undefined) plan[key] = plan.provider[key]; });
+    ['termsUrl', 'permanent', 'humanOnly', 'humanOnlyNote', 'openData'].forEach(key => { 
+        if (plan[key] === undefined && plan.provider[key] !== undefined) plan[key] = plan.provider[key]; 
+    });
     groups[plan.group] = true; // just for counting
 });
 
