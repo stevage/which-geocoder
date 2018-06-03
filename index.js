@@ -76750,7 +76750,7 @@ const providers = {
     }, 'Geocode.xyz': {
         api: {
             geocode: 'https://geocode.xyz/api',
-            reverse: false,
+            reverse: true,
             autocomplete: false,
         }
     }, 'LocationIQ': {
