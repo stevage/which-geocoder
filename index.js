@@ -76702,7 +76702,7 @@ const providers = {
                 docs: 'https://www.gisgraphy.com/documentation/index.php',
                 autocomplete: 'https://www.gisgraphy.com/documentation/user-guide.php#fulltextservice',
                 geocode: 'https://www.gisgraphy.com/documentation/user-guide.php#geocodingservice',
-                reverse: true,
+                reverse: 'https://www.gisgraphy.com/documentation/user-guide.php#reversegeocodingservice',
                 locationWeighting: true, // 'prox'
             },
         termsUrl: 'https://www.gisgraphy.com/terms.php',
@@ -76890,15 +76890,59 @@ const plans = [
     },
     {   
         group: 'Gisgraphy',
-        name: 'Standard',
-        dollarsMonthly: 235,
-        includedRequestsMonthly: 5184000,
+        name: 'First',
+        dollarsMonthly: 93,
+        includedRequestsMonthly: 1296000,
         requestsPerSecond: 0.5, // 30 per 60 seconds
         url: 'https://premium.gisgraphy.com/pricing',
         thirdParty: true,
         publicRequired: false,
         bonuses:['Entire SQL database can be downloaded.'],
         freeRequired: false,
+    	sortDollars:938,
+    	autocompleteMultiplier:1
+    },
+    {   
+        group: 'Gisgraphy',
+        name: 'Standard',
+        dollarsMonthly: 235,
+        includedRequestsMonthly: 5184000,
+        requestsPerSecond: 2, // 120 per 60 seconds
+        url: 'https://premium.gisgraphy.com/pricing',
+        thirdParty: true,
+        publicRequired: false,
+        bonuses:['Entire SQL database can be downloaded.'],
+        freeRequired: false,
+    	sortDollars:2347,
+    	autocompleteMultiplier:1
+    },
+    {   
+        group: 'Gisgraphy',
+        name: 'Business',
+        dollarsMonthly: 352,
+        includedRequestsMonthly: 12960000,
+        requestsPerSecond: 5, // 300 per 60 seconds
+        url: 'https://premium.gisgraphy.com/pricing',
+        thirdParty: true,
+        publicRequired: false,
+        bonuses:['Entire SQL database can be downloaded.'],
+        freeRequired: false,
+    	sortDollars:3522,
+    	autocompleteMultiplier:1
+    },
+    {   
+        group: 'Gisgraphy',
+        name: 'Expert',
+        dollarsMonthly: 586,
+        includedRequestsMonthly: 21600000,
+        requestsPerSecond: 9, // 500 per 60 seconds
+        url: 'https://premium.gisgraphy.com/pricing',
+        thirdParty: true,
+        publicRequired: false,
+        bonuses:['Entire SQL database can be downloaded.'],
+        freeRequired: false,
+    	sortDollars:5868,
+    	autocompleteMultiplier:1
     },
     {   
         group: 'HERE',
