@@ -76732,13 +76732,13 @@ const providers = {
 
     }, OpenCage: {
         api: {
-            docs: 'https://geocoder.opencagedata.com/api',
-            geocode: 'https://geocoder.opencagedata.com/api#forward-resp',
-            reverse: 'https://geocoder.opencagedata.com/api#reverse-resp',
+            docs: 'https://opencagedata.com/api',
+            geocode: 'https://opencagedata.com/api#forward-resp',
+            reverse: 'https://opencagedata.com/api#reverse-resp',
             autocomplete: false,
         },
-        termsUrl: 'https://geocoder.opencagedata.com/terms',
-        cons: ['GNAF not included yet.']
+        termsUrl: 'https://opencagedata.com/terms',
+        quality: "AU: ★★★ GNAF, elsewhere: ★★☆ OSM + other open data sources"
     }, Mapbox: {
         api: {
             geocode: 'https://www.mapbox.com/api-documentation/#geocoding',
@@ -77178,7 +77178,7 @@ const plans = [
         permanent: true,
         openData: true,
         thirdParty: true,
-        url: 'https://geocoder.opencagedata.com/pricing',
+        url: 'https://opencagedata.com/pricing',
 
     },
     {
@@ -77191,7 +77191,7 @@ const plans = [
         permanent: true,
         openData: true,
         thirdParty: true,
-        url: 'https://geocoder.opencagedata.com/pricing'
+        url: 'https://opencagedata.com/pricing'
     },
     {
         group: 'OpenCage',
@@ -77203,7 +77203,7 @@ const plans = [
         permanent: true,
         openData: true,
         thirdParty: true,
-        url: 'https://geocoder.opencagedata.com/pricing'
+        url: 'https://opencagedata.com/pricing'
     },
     {
         group: 'OpenCage',
@@ -77215,7 +77215,7 @@ const plans = [
         permanent: true,
         openData: true,
         thirdParty: true,
-        url: 'https://geocoder.opencagedata.com/pricing'
+        url: 'https://opencagedata.com/pricing'
     },
     {
         group: 'OpenCage',
@@ -77226,7 +77226,7 @@ const plans = [
         dollarsMonthly: 1320,
         currencySymbol: '$A',
         permanent: true,
-        url: 'https://geocoder.opencagedata.com/pricing',
+        url: 'https://opencagedata.com/pricing',
         openData: true,
         thirdParty: true,
     },
