@@ -115,9 +115,11 @@ const providers = {
             geocode: 'https://locationiq.org/docs',
             reverse: 'https://locationiq.org/docs',
             autocomplete: false,
-            batch: 'https://locationiq.org/#batch-geocoding'
+            batch: 'https://locationiq.org/#batch-geocoding',
+            locationWeighting: true
         },
-        quality: '★☆☆ OpenStreetMap'
+        termsUrl: 'https://locationiq.com/tos',
+        quality: '★★☆ OpenStreetMap, OpenAddresses, WhosonFirst, Polylines & Geonames.'
     }, /*'Mapzen (RIP)': {
         api: {
             geocode: true,
@@ -787,65 +789,65 @@ const plans = [
         name: 'Developer',
         dollarsMonthly: 0,
         includedRequestsDaily: 10e3,
-        requestsPerSecond: 60/60,
+        requestsPerSecond: 120/60,
         freeRequired: true,
         url: 'https://locationiq.org/',
         openData: true,
-        permanent: false,
+        permanent: true,
         thirdParty: true,
-        humanOnly: true
+        humanOnly: false
     },
     {
         group: 'LocationIQ',
         name: 'Professional',
         dollarsMonthly: 50,
         includedRequestsDaily: 20e3,
-        requestsPerSecond: 600/60,
+        requestsPerSecond: 1200/60,
         freeRequired: false,
         url: 'https://locationiq.org/',
         openData: true,
-        permanent: false,
+        permanent: true,
         thirdParty: true,
-        humanOnly: true
+        humanOnly: false
     },
     {
         group: 'LocationIQ',
         name: 'Startup',
         dollarsMonthly: 100,
         includedRequestsDaily: 50e3,
-        requestsPerSecond: 720/60,
+        requestsPerSecond: 1440/60,
         freeRequired: false,
         url: 'https://locationiq.org/',
         openData: true,
-        permanent: false,
+        permanent: true,
         thirdParty: true,
-        humanOnly: true
+        humanOnly: false
     },
     {
         group: 'LocationIQ',
         name: 'Business',
         dollarsMonthly: 200,
         includedRequestsDaily: 100e3,
-        requestsPerSecond: 900/60,
+        requestsPerSecond: 1800/60,
         freeRequired: false,
         url: 'https://locationiq.org/',
         openData: true,
-        permanent: false,
+        permanent: true,
         thirdParty: true,
-        humanOnly: true
+        humanOnly: false
     },
     {
         group: 'LocationIQ',
         name: 'Business Plus',
         dollarsMonthly: 500,
         includedRequestsDaily: 500e3,
-        requestsPerSecond: 1200/60,
+        requestsPerSecond: 2400/60,
         freeRequired: false,
         url: 'https://locationiq.org/',
         openData: true,
-        permanent: false,
+        permanent: true,
         thirdParty: true,
-        humanOnly: true
+        humanOnly: false
     },
     {
         group: 'LocationIQ',
@@ -856,9 +858,9 @@ const plans = [
         url: 'https://locationiq.org/',
         openData: true,
         thirdParty: true,
-        permanent: false,
+        permanent: true,
+        humanOnly: false,
         sortDollars: 1000 * 12
-        //humanOnly: true // I'm guessing...
     },
     {
         group: 'Mapquest',
