@@ -53,11 +53,11 @@ const providers = {
             docs: 'https://developers.arcgis.com/rest/geocode/api-reference/overview-world-geocoding-service.htm',
             geocode: 'https://developers.arcgis.com/rest/geocode/api-reference/geocoding-find-address-candidates.htm',
             reverse: 'https://developers.arcgis.com/rest/geocode/api-reference/geocoding-reverse-geocode.htm',
-            autocomplete: 'https://developers.arcgis.com/rest/geocode/api-reference/geocoding-suggest.htm'
+            autocomplete: 'https://developers.arcgis.com/rest/geocode/api-reference/geocoding-suggest.htm',
+            batch: 'https://developers.arcgis.com/rest/geocode/api-reference/geocoding-geocode-addresses.htm'
         },
         termsUrl: 'https://www.esri.com/en-us/legal/terms/full-master-agreement/mla-e204-e300-english',
-        openData: false,
-
+        openData: false
     },
     Gisgraphy: {
         api: {
@@ -240,7 +240,9 @@ const plans = [
         dollarsMonthly: 0,
         includedRequestsMonthly: 1e6,
         permanent: false,
-        url: 'https://developers.arcgis.com/features/geocoding/'
+        thirdParty: true,
+        url: 'https://developers.arcgis.com/features/geocoding/',
+        conditions: 'https://developers.arcgis.com/terms/attribution/'
     },
     {
         group: 'ArcGIS',
@@ -249,8 +251,9 @@ const plans = [
         includedRequestsMonthly: 0,
         extraPer1000: 4,
         permanent: true,
-        url: 'https://developers.arcgis.com/features/geocoding/'
-        // TODO figure out if third party maps ok etc.
+        thirdParty: true,
+        url: 'https://developers.arcgis.com/features/geocoding/',
+        conditions: 'https://developers.arcgis.com/terms/attribution/'
     },
     {   
         group: 'Gisgraphy',
