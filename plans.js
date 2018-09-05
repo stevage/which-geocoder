@@ -242,7 +242,7 @@ const plans = [
         permanent: false,
         thirdParty: true,
         url: 'https://developers.arcgis.com/features/geocoding/',
-        conditions: 'https://developers.arcgis.com/terms/attribution/'
+        conditions: [ "must display <a href='https://developers.arcgis.com/terms/attribution/'>attribution"]
     },
     {
         group: 'ArcGIS',
@@ -253,7 +253,7 @@ const plans = [
         permanent: true,
         thirdParty: true,
         url: 'https://developers.arcgis.com/features/geocoding/',
-        conditions: 'https://developers.arcgis.com/terms/attribution/'
+        conditions: [ "must display <a href='https://developers.arcgis.com/terms/attribution/'>attribution"]
     },
     {   
         group: 'Gisgraphy',
