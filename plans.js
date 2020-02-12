@@ -441,7 +441,7 @@ const plans = [
         publicRequired: true,
         freeRequired: true,
         permanent: true, // "except that geocodes may be stored locally only for use with your Company Applications. "
-        thirdParty: false, // not certain but I think so
+        thirdParty: true,
         conditions: ['Max 125,000 transactions per year'],
         url: 'https://www.microsoft.com/en-us/maps/licensing/options',
         autocompleteMultiplier: 0
@@ -458,7 +458,7 @@ const plans = [
             'Must be non-profit.',
             'Less than 50k transactions per 24 hours.'
         ],
-        thirdParty: false,
+        thirdParty: true,
         url: 'https://www.microsoft.com/en-us/maps/licensing/options',
         autocompleteMultiplier: 0
 
@@ -469,7 +469,7 @@ const plans = [
         dollarsMonthly: 4620 / 12,
         sortDollars: 3680,
         permanent: true, // "except that geocodes may be stored locally only for use with your Company Applications. "
-        thirdParty: false,
+        thirdParty: true,
         autocompleteMultiplier: 0 // We think, based on the session key thing.
     },  {
         group: 'BING',
@@ -478,7 +478,7 @@ const plans = [
         dollarsMonthly: 6050 / 12,
         sortDollars: 4818,
         permanent: true, // "except that geocodes may be stored locally only for use with your Company Applications. "
-        thirdParty: false,
+        thirdParty: true,
         autocompleteMultiplier: 0
     }, {
         group: 'Mapbox',
