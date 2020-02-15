@@ -193,7 +193,7 @@ const providers = {
             // can't tell about locationWeighting, don't think I can see full API docs
         },
         termsUrl: 'https://www.pitneybowes.com/us/developer/subscription-agreement.html?tab2'
-    }, 'geocode.earth': {
+    }, 'Geocode Earth': {
         api: {
             geocode: true,
             reverse: true,
@@ -673,40 +673,37 @@ const plans = [
     //     autocompleteMultiplier: 0.1 // not exactly, you also got 50k free autocompletes per month
     // },
     {
-        group: 'geocode.earth',
+        group: 'Geocode Earth',
         name: 'Basic',
         includedRequestsMonthly: 200e3,
         dollarsMonthly: 200,
         requestsPerSecond: 5, //10 for autocomplete or reverse but that's too complicated
         openData: true,
         thirdParty: true,
-        permanent: true, // making assumptions HERE
+        permanent: true,
         bonuses: ['Made by the Mapzen team'],
-        conditions: ['Brand new company we know nothing about'],
         url: 'https://geocode.earth/',
     },
     {
-        group: 'geocode.earth',
+        group: 'Geocode Earth',
         name: 'Advanced',
         includedRequestsMonthly: 2e6,
         dollarsMonthly: 500,
         requestsPerSecond: 10, //20 for autocomplete or reverse but that's too complicated
         openData: true,
         thirdParty: true,
-        permanent: true, // making assumptions HERE
+        permanent: true,
         bonuses: ['Made by the Mapzen team'],
-        conditions: ['Brand new company we know nothing about'],
         url: 'https://geocode.earth/',
     },
     {
-        group: 'geocode.earth',
+        group: 'Geocode Earth',
         name: 'Custom',
         custom: true,
         openData: true,
         thirdParty: true,
-        permanent: true, // making assumptions HERE
+        permanent: true,
         bonuses: ['Made by the Mapzen team'],
-        conditions: ['Brand new company we know nothing about'],
         url: 'https://geocode.earth/',
     },
     {
