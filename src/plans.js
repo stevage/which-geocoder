@@ -120,14 +120,7 @@ const providers = {
         },
         termsUrl: 'https://locationiq.com/tos',
         quality: '★★☆ OpenStreetMap, OpenAddresses, WhosonFirst, Polylines & Geonames.'
-    }, /*'Mapzen (RIP)': {
-        api: {
-            geocode: true,
-            reverse: true,
-            autocomplete: true,
-            locationWeighting: true
-        }
-    },*/ 'Tomtom': {
+    }, 'Tomtom': {
         api: {
             docs: 'https://developer.tomtom.com/online-search/online-search-documentation-search',
             geocode: 'https://developer.tomtom.com/online-search/online-search-documentation-search/fuzzy-search',
@@ -656,22 +649,6 @@ const plans = [
         // maxRequsetsMonthly: 100e3
         // totalMonthly: requests => 0 + 0.5 * Math.max(requests - 2500 * MONTH, 0) / 1000
     },
-    // {
-    //     group: 'Mapzen (RIP)',
-    //     name: 'Flex',
-    //     includedRequestsMonthly: 25000,
-    //     maxRequestsMonthly: false,
-    //     dollarsMonthly: 0,
-    //     extraPer1000: 0.5,
-    //     extra: '+ 50c / 1,000',
-    //     conditions: ['⚠ Service is shutting down'],
-    //     totalMonthly: requests => 0 + 0.5 * Math.max(requests - 25000, 0) / 1000,
-    //     url: 'https://mapzen.com/pricing/',
-    //     thirdParty: true,
-    //     openData: true,
-    //     permanent: true,
-    //     autocompleteMultiplier: 0.1 // not exactly, you also got 50k free autocompletes per month
-    // },
     {
         group: 'Geocode Earth',
         name: 'Basic',
