@@ -1086,7 +1086,6 @@ const plans = [
         group: 'Nominatim',
         name: 'Public API',
         dollarsMonthly: 0,
-        maxRequestsDaily: 1000,
         requestsPerSecond: 1,
         bonuses: ['No hard limits'],
         conditions: ['Caching strongly urged','No big jobs','Attribution required', 'No autocomplete'],
