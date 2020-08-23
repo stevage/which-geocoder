@@ -441,9 +441,10 @@ const plans = [
         dollarsMonthly: 0,
         publicRequired: true,
         freeRequired: true,
-        permanent: true, // "except that geocodes may be stored locally only for use with your Company Applications. "
+        permanent: false, // "except that geocodes may be stored locally only for use with your Company Applications. "
         thirdParty: true,
         conditions: ['Max 125,000 transactions per year'],
+        bonuses: ['Local caching of geocodes is allowed "for use with your Company Applications"'],
         url: 'https://www.microsoft.com/en-us/maps/licensing/options',
         autocompleteMultiplier: 0
     }, {
@@ -453,12 +454,13 @@ const plans = [
         maxRequestsMonthly:  50000*MONTH,
         dollarsMonthly: 0,
         publicRequired: true,
-        permanent: true, // "except that geocodes may be stored locally only for use with your Company Applications. "
+        permanent: false, // "except that geocodes may be stored locally only for use with your Company Applications. "
         freeRequired: true, // "Applications that qualify for a limited website and consumer application use, which will be free of charge as defined in the SDKs"
         conditions: [
             'Must be non-profit.',
             'Less than 50k transactions per 24 hours.'
         ],
+        bonuses: ['Local caching of geocodes is allowed "for use with your Company Applications"'],
         thirdParty: true,
         url: 'https://www.microsoft.com/en-us/maps/licensing/options',
         autocompleteMultiplier: 0
@@ -469,18 +471,20 @@ const plans = [
         includedRequestsMonthly: 500e3 / 12, // annually
         dollarsMonthly: 4620 / 12,
         sortDollars: 3680,
-        permanent: true, // "except that geocodes may be stored locally only for use with your Company Applications. "
+        permanent: false, // "except that geocodes may be stored locally only for use with your Company Applications. "
         thirdParty: true,
-        autocompleteMultiplier: 0 // We think, based on the session key thing.
+        autocompleteMultiplier: 0, // We think, based on the session key thing.
+        bonuses: ['Local caching of geocodes is allowed "for use with your Company Applications"']
     },  {
         group: 'BING',
         name: 'Quote #2',
         includedRequestsMonthly: 1e6 / 12, // annually
         dollarsMonthly: 6050 / 12,
         sortDollars: 4818,
-        permanent: true, // "except that geocodes may be stored locally only for use with your Company Applications. "
+        permanent: false, // "except that geocodes may be stored locally only for use with your Company Applications. "
         thirdParty: true,
-        autocompleteMultiplier: 0
+        autocompleteMultiplier: 0,
+        bonuses: ['Local caching of geocodes is allowed "for use with your Company Applications"']
     }, {
         group: 'Mapbox',
         name: 'Pay-as-you-go',
