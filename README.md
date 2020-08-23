@@ -8,10 +8,18 @@ The data will go out of date quickly, so: **contributors are very much wanted** 
 
 ### Scope
 
-The site aims to include publicly-hosted geocoding APIs. 
+The site aims to include publicly-hosted geocoding APIs.
 
 Excluded for now:
 
 * Geoocoding software that must be downloaded and installed (such as [Photon](https://github.com/komoot/photon), [Pelias](https://github.com/pelias/pelias) and [Data61's gnaf geocoder](https://github.com/data61/gnaf).)
 * User-facing websites that allow upload of spreadsheets, but don't have APIs, such as [JoinAddress](https://geocoder.wigeogis.com/welcome).
 
+### Building
+
+```
+yarn install
+yarn run build
+```
+
+This produces output in `./dist`.
