@@ -23,3 +23,5 @@ yarn run build
 ```
 
 This produces output in `./dist`.
+
+See [official install instruction for yarn](https://classic.yarnpkg.com/en/docs/install/). It is important especially on Debian-based system such as Ubuntu where standard installation method may result in `cmdtest` becoming installed [instead](https://github.com/yarnpkg/yarn/issues/2821).
