@@ -2,9 +2,9 @@ CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     publicPath: '',
     devServer: {
-        historyApiFallback: false
-    }, 
-    configureWebpack: {
+        historyApiFallback: false,
+    },
+    /*configureWebpack: {
         plugins: [
             new CopyWebpackPlugin([
                 {
@@ -12,10 +12,10 @@ module.exports = {
                     // so we have to explicitly copy them to where we want them
                     from: 'src/static',
                     to: 'static',
-                    transformPath: (targetPath, absolutePath) => targetPath.toLowerCase() 
+                    transformPath: (targetPath, absolutePath) => targetPath.toLowerCase()
                 }
             ])
         ]
-    },
-    chainWebpack: config => config.resolve.symlinks(false)
+    },*/
+    chainWebpack: config => config.resolve.symlinks(false),
 };
