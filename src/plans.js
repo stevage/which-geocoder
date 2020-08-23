@@ -172,6 +172,14 @@ const providers = {
 
         },
         cons: ['API documentation looks old and broken.']
+    }, 'Photon': {
+        api: {
+            docs: 'http://photon.komoot.de/',
+            autocomplete: true,
+            geocode: 'http://photon.komoot.de/',
+            reverse: 'http://photon.komoot.de/',
+            locationWeighting: true
+        }
     }, 'Yahoo BOSS PlaceFinder': {
         cons: ['Looks out of date and poorly maintained.'],
         api: {}
@@ -1067,6 +1075,19 @@ const plans = [
         termsUrl: 'https://operations.osmfoundation.org/policies/nominatim/',
         bonuses: ['No hard limits', 'Open source, running own instance is possible'],
         conditions: ['Caching mandatory if possible', 'No big jobs','Attribution required', 'No autocomplete', 'valid HTTP Referer or User-Agent mandatory', 'data is ODbL licensed'],
+        permanent: true,
+        humanOnly: false,
+        openData: true,
+        thirdParty: true
+    },
+    {
+        group: 'Photon',
+        name: 'Demo instance',
+        dollarsMonthly: 0,
+        requestsPerSecond: 1, // unspecifed beyond "extensive usage will be throttled" - https://github.com/komoot/photon/issues/479
+        termsUrl: 'http://photon.komoot.de/',
+        bonuses: ['Open source, running own instance is possible'],
+        conditions: ['demo supports only some values of lang parameter', 'Attribution required', 'data is ODbL licensed'], // https://github.com/komoot/photon/issues/313
         permanent: true,
         humanOnly: false,
         openData: true,

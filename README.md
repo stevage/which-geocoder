@@ -12,7 +12,7 @@ The site aims to include publicly-hosted geocoding APIs.
 
 Excluded for now:
 
-* Geoocoding software that must be downloaded and installed (such as [Photon](https://github.com/komoot/photon), [Pelias](https://github.com/pelias/pelias) and [Data61's gnaf geocoder](https://github.com/data61/gnaf).)
+* Geoocoding software that must be downloaded and installed (such as [Pelias](https://github.com/pelias/pelias) and [Data61's gnaf geocoder](https://github.com/data61/gnaf).)
 * User-facing websites that allow upload of spreadsheets, but don't have APIs, such as [JoinAddress](https://geocoder.wigeogis.com/welcome).
 
 ### Building
