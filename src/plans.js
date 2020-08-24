@@ -95,7 +95,7 @@ const providers = {
             autocomplete: false,
         },
         termsUrl: 'https://opencagedata.com/terms',
-        quality: "AU: ★★★ GNAF, elsewhere: ★★☆ OSM + other open data sources"
+        quality: "AU: ★★★ GNAF, elsewhere: ★★☆ OSM + other open data sources (they are <a ref=\"https://opencagedata.com/tutorials/migrate-from-nominatim\">promising</ref> better reliability compared to Nominatim public instance, without quality improvements)"
     }, Mapbox: {
         api: {
             geocode: 'https://www.mapbox.com/api-documentation/#geocoding',
