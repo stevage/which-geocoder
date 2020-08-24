@@ -120,6 +120,15 @@ const providers = {
         },
         termsUrl: 'https://locationiq.com/tos',
         quality: '★★☆ OpenStreetMap, OpenAddresses, WhosonFirst, Polylines & Geonames.'
+    }, 'Nominatim': {
+        api: {
+            docs: 'https://nominatim.org/release-docs/develop/api/Overview/',
+            geocode: 'https://nominatim.org/release-docs/develop/api/Search/',
+            reverse: 'hhttps://nominatim.org/release-docs/develop/api/Reverse/',
+            autocomplete: false,
+        },
+        termsUrl: 'https://operations.osmfoundation.org/policies/nominatim/',
+        quality: "★★☆ OSM"
     }, 'Tomtom': {
         api: {
             docs: 'https://developer.tomtom.com/online-search/online-search-documentation-search',
@@ -1076,9 +1085,8 @@ const plans = [
         name: 'Public API',
         dollarsMonthly: 0,
         requestsPerSecond: 1,
-        termsUrl: 'https://operations.osmfoundation.org/policies/nominatim/',
         bonuses: ['No hard limits', 'Open source, running own instance is possible'],
-        conditions: ['Caching mandatory if possible', 'No big jobs','Attribution required', 'No autocomplete', 'valid HTTP Referer or User-Agent mandatory', 'data is ODbL licensed'],
+        conditions: ['Caching mandatory if possible', 'No big jobs','Attribution required', 'valid HTTP Referer or User-Agent mandatory', 'data is ODbL licensed'],
         permanent: true,
         humanOnly: false,
         openData: true,
