@@ -149,7 +149,7 @@ const providers = {
             autocomplete: false,
             locationWeighting: true
         }
-    }, 'BING': {
+    }, 'Bing': {
         api: {
             docs: 'https://msdn.microsoft.com/en-us/library/ff701715.aspx',
             geocode: 'https://msdn.microsoft.com/en-us/library/ff701714.aspx',
@@ -443,7 +443,7 @@ const plans = [
         sortDollars: 10000 // this should be a formula based on requests...
     },
     {
-        group: 'BING',
+        group: 'Bing',
         name: 'Consumer, Free',
         includedRequestsMonthly: 125e3/12,
         maxRequestsMonthly:  125e3/12,
@@ -457,7 +457,7 @@ const plans = [
         url: 'https://www.microsoft.com/en-us/maps/licensing/options',
         autocompleteMultiplier: 0
     }, {
-        group: 'BING',
+        group: 'Bing',
         name: 'Non-profit, Free',
         includedRequestsDaily: 50000,
         maxRequestsMonthly:  50000*MONTH,
@@ -475,7 +475,7 @@ const plans = [
         autocompleteMultiplier: 0
 
     },  {
-        group: 'BING',
+        group: 'Bing',
         name: 'Quote #1',
         includedRequestsMonthly: 500e3 / 12, // annually
         dollarsMonthly: 4620 / 12,
@@ -485,7 +485,7 @@ const plans = [
         autocompleteMultiplier: 0, // We think, based on the session key thing.
         bonuses: ['Local caching of geocodes is allowed "for use with your Company Applications"']
     },  {
-        group: 'BING',
+        group: 'Bing',
         name: 'Quote #2',
         includedRequestsMonthly: 1e6 / 12, // annually
         dollarsMonthly: 6050 / 12,
