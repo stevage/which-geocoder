@@ -230,8 +230,7 @@ const providers = {
             autocomplete: 'https://developer.psma.com.au/api/predictive-address-verification/get/predictive/address'
         },
         playUrl: 'https://demo.psma.com.au/predictive-address-verification'
-    },
-    'SmartyStreets': {
+    }, 'SmartyStreets': {
         api: {
             geocode: true,
             autocomplete: false, // true for US addresses only
