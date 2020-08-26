@@ -678,7 +678,7 @@ const plans = [
         openData: true,
         thirdParty: true,
         permanent: true,
-        bonuses: ['Made by the Mapzen team'],
+        bonuses: ['Made by the Mapzen team', 'free trial available'],
         url: 'https://geocode.earth/',
     },
     {
