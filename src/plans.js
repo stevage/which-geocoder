@@ -237,7 +237,20 @@ const providers = {
             reverse: false,
             locationWeighting: false
         }
-    }
+    },
+    Geocodio: {
+        api: {
+            docs: 'https://www.geocod.io/docs/',
+            geocode: 'https://www.geocod.io/docs/#geocoding',
+            reverse: 'https://www.geocod.io/docs/#reverse-geocoding',
+            autocomplete: false,
+            batch: 'https://www.geocod.io/docs/#batch-geocoding'
+        },
+        termsUrl: 'https://www.geocod.io/terms-of-use/',
+        openData: true,
+        permanent: true,
+        humanOnly: false,
+    },
 };
 
 
@@ -1303,7 +1316,30 @@ const plans = [
         currency: 'AUD',
         currencySymbol: '$A',
         autocompleteMultiplier: 0
-    }
+    },
+    {
+        group: 'Geocodio',
+        name: 'Pay as You Go',
+        dollarsMonthly: 0,
+        maxRequestsMonthly: false,
+        includedRequestsMonthly: 0,
+        conditions: ['USA+Canada only'],
+        extraPer1000: 0.5,
+        currency: 'USD',
+        currencySymbol: '$',
+        url: 'https://Geocodio/pricing',
+    },
+    {
+        group: 'Geocodio',
+        name: 'Monthly unlimited',
+        dollarsMonthly: 1000,
+        maxRequestsMonthly: false,
+        extras: 'Unlimited Geocoding',
+        conditions: ['USA+Canada only'],
+        currency: 'USD',
+        currencySymbol: '$',
+        url: 'https://www.geocod.io/pricing/',
+    },
 
 
 ];
