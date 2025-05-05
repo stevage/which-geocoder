@@ -237,6 +237,15 @@ const providers = {
             reverse: false,
             locationWeighting: false
         }
+    }, 'Geoapify': {
+        api: {
+            geocode: 'https://www.geoapify.com/geocoding-api/',
+            reverse: 'https://www.geoapify.com/reverse-geocoding-api/',
+            autocomplete: 'https://www.geoapify.com/address-autocomplete/',
+            batch: 'https://www.geoapify.com/solutions/batch-geocoding-requests/',
+            locationWeighting: true
+        },
+        quality: 'OpenStreetMaps, OpenAddresses, GeoNames, Whosonfirst datasets',
     }
 };
 
@@ -1303,9 +1312,78 @@ const plans = [
         currency: 'AUD',
         currencySymbol: '$A',
         autocompleteMultiplier: 0
+    },
+    {
+      group: 'Geoapify',
+      name: 'Free',
+      includedRequestsDaily: 3000,
+      requestsPerSecond: 5,
+      dollarsMonthly: 0,
+      openData: true,
+      permanent: true,
+      url: 'https://www.geoapify.com/pricing/',
+      termsUrl: 'https://www.geoapify.com/term-and-conditions/'
+    },
+    {
+      group: 'Geoapify',
+      name: 'API 10',
+      includedRequestsDaily: 10000,
+      requestsPerSecond: 12,
+      dollarsMonthly: 59,
+      dollarsAnnually: 590,
+      openData: true,
+      permanent: true,
+      url: 'https://www.geoapify.com/pricing/',
+      termsUrl: 'https://www.geoapify.com/term-and-conditions/'
+    },
+    {
+      group: 'Geoapify',
+      name: 'API 25',
+      includedRequestsDaily: 25000,
+      requestsPerSecond: 15,
+      dollarsMonthly: 109,
+      dollarsAnnually: 1090,
+      openData: true,
+      permanent: true,
+      url: 'https://www.geoapify.com/pricing/',
+      termsUrl: 'https://www.geoapify.com/term-and-conditions/'
+    },
+    {
+      group: 'Geoapify',
+      name: 'API 50',
+      includedRequestsDaily: 50000,
+      requestsPerSecond: 20,
+      dollarsMonthly: 179,
+      dollarsAnnually: 1790,
+      openData: true,
+      permanent: true,
+      url: 'https://www.geoapify.com/pricing/',
+      termsUrl: 'https://www.geoapify.com/term-and-conditions/'
+    },
+    {
+      group: 'Geoapify',
+      name: 'API 100',
+      includedRequestsDaily: 100000,
+      requestsPerSecond: 25,
+      dollarsMonthly: 299,
+      dollarsAnnually: 2990,
+      openData: true,
+      permanent: true,
+      url: 'https://www.geoapify.com/pricing/',
+      termsUrl: 'https://www.geoapify.com/term-and-conditions/'
+    },
+    {
+      group: 'Geoapify',
+      name: 'API 250',
+      includedRequestsDaily: 250000,
+      requestsPerSecond: 30,
+      dollarsMonthly: 609,
+      dollarsAnnually: 6090,
+      openData: true,
+      permanent: true,
+      url: 'https://www.geoapify.com/pricing/',
+      termsUrl: 'https://www.geoapify.com/term-and-conditions/'
     }
-
-
 ];
 let groups = {};
 plans.forEach(plan => {
